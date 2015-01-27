@@ -59,23 +59,33 @@ public class KMP {
 	}
 	
 	public void algo(){
+		int nbRes = 0;
 		int indice = 0;
-		for (int i = 0; i < this.sequence.length-this.motif.length; i++) {
+		for (int i = 0; i < (this.sequence.length-this.motif.length+1) || (indice != 0); i++) {
+			/* Cas où le mot a déjà été trouvé */
+			if(indice == this.motif.length){
+				System.out.println("mot trouvé : "+(i-1));
+				nbRes ++;
+				i-=this.next[indice]+1;
+				indice = 0;
+			} else {
+				/* Cas où la lettre suivante correspond par rapport au motif */
 			if(this.sequence[i] == this.motif[indice]) {
 				indice++;
 			} else {
+				/* Cas où la lettre ne correspond pas au motif */
+				i-=this.next[indice]+1;
 				indice = 0;
-				i-=this.next[indice]-1;
 			}
-			if(indice == this.motif.length-1)
-				System.out.println("mot trouvé");
+			}
 		}
-		
+		System.out.println(nbRes);
 	}
 
 	public static void main(String[] args) {
-		char[] motif = {'T','A','C', 'T', 'A', 'G', 'A'};
-		KMP recherche = new KMP(null,motif);
+		char[] motif = {'T','A','C','T'};
+		char[] sequence = {'T','A','C','T','A','G','A','T','A','C','T','A','C'};
+		KMP recherche = new KMP(sequence,motif);
 		recherche.calculNext();
 		recherche.algo();
 		for(int i=0;i<recherche.next.length;i++){
