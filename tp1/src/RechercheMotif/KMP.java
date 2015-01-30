@@ -1,20 +1,34 @@
 package RechercheMotif;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class KMP {
 
-	char[] sequence;
-	public int[] next;
-	char[] motif;
-
+	private char[] sequence;
+	private int[] next;
+	private char[] motif;
+	private int nbRes;
+	private List<Integer> occurences;
+	
 	public KMP(char[] sequence, char[] motif) {
 		this.sequence = sequence;
 		this.motif = motif;
+		this.nbRes = 0;
+		occurences = new ArrayList<Integer>();
 	}
 
+	public void setMotif(char[] motif){
+		this.motif = motif;
+	}
+	
 	public void calculNext() {
 		this.next = new int[this.motif.length + 1];
 		this.next[0] = -1;
-		this.next[1] = motif[0] == motif[1] ? -1 : 0;
+		if(this.motif.length > 1)
+			this.next[1] = motif[0] == motif[1] ? -1 : 0;
+		else
+			return;
 		int j;
 		int estTrouve = 0;
 		int estUnBord = 0;
@@ -57,17 +71,17 @@ public class KMP {
 	}
 
 	public void algo() {
-		int nbRes = 0;
 		int indice = 0;
 		for (int i = 0; i < this.sequence.length; i++) {
 			/* Cas où la lettre suivante correspond par rapport au motif */
 			if (this.sequence[i] == this.motif[indice]) {
-				System.out.println("indice : " + indice + " lettre : "
-						+ this.sequence[i]);
+//				System.out.println("indice : " + indice + " lettre : "
+//						+ this.sequence[i]);
 				if (indice == this.motif.length - 1) {
-					nbRes++;
-					System.out.println(nbRes + "e occurence : "
-							+ (i - indice + 1) + "->" + i);
+					this.nbRes++;
+//					System.out.println(this.nbRes + "e occurence : "
+//							+ (i - indice + 1) + "->" + i);
+					this.occurences.add(i-indice+1);
 				}
 				indice = (indice + 1) % (this.motif.length);
 			} else {
@@ -76,7 +90,14 @@ public class KMP {
 				indice = 0;
 			}
 		}
-		System.out.println(nbRes);
+	}
+	/**TEMPORAIRE A DEGAGER **/
+	public void resetListOccurences(){
+		this.occurences = new ArrayList<Integer>();
+	}
+	
+	public List<Integer> getListOccurences(){
+		return this.occurences;
 	}
 
 	/*
@@ -100,8 +121,8 @@ public class KMP {
 	 * bordMax; i++){ System.out.print(this.motif[i] + " "); } } }
 	 */
 
-	public static void main(String[] args) {
-		char[] motif = { 'T', 'A', 'G', 'T', 'A', 'G' };
+	/*public static void main(String[] args) {
+		char[] motif = { 'T', 'A', 'C', 'T', 'A', 'G','A'};
 		char[] sequence = { 'T', 'A', 'C', 'T', 'A', 'G', 'A', 'T', 'A', 'C',
 				'T', 'A', 'C', 'T', 'A', 'C', 'T' };
 		KMP recherche = new KMP(sequence, motif);
@@ -112,5 +133,5 @@ public class KMP {
 			System.out.print(recherche.next[i] + " ");
 		}
 
-	}
+	}*/
 }
