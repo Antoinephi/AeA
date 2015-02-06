@@ -1,27 +1,22 @@
 package RechercheMotif;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Naif {
+public class Naif extends AlgoRecherche{
 	private char[] sequence;
-	private int[] next;
 	private char[] motif;
-	private int nbRes;
 	private List<Integer> occurences;
 	
 	public Naif(char[] sequence, char[] motif) {
-		this.sequence = sequence;
-		this.motif = motif;
-		this.nbRes = 0;
-		occurences = new ArrayList<Integer>();
+		super(sequence, motif);
 	}
 	
 	public void setMotif(char[] motif){
 		this.motif = motif;
 	}
 	
-	public void algoNaif(){
+	
+	public void calcul(){
 		boolean trouve = true;
 		for(int i=0;i<this.sequence.length;i++){
 			trouve = true;
@@ -34,5 +29,9 @@ public class Naif {
 				this.occurences.add(i);
 			}
 		}
+	}
+
+	
+	public void preCalcul() {		
 	}
 }

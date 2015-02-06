@@ -26,32 +26,32 @@ public class Main {
 			p = new PrintWriter("file.txt", "UTF-8");
 		
 			
-			for (int i = 0; i < sequence.length - longMotif; i++) {
+			for (int i = 0; i < sequence.length - longMotif; i++) {	
 				motif = Arrays.copyOfRange(sequence, i, i + longMotif);
 				ConvertSequence c = new ConvertSequence(motif);
 				char[] motifReverse = c.getReverse();
 				char[] motifComp = c.getComp();
 				char[] motifReverseComp = c.getReverseComp();
 				kmp.setMotif(motif);
-				kmp.calculNext();
-				kmp.algo();
+				kmp.preCalcul();
+				kmp.calcul();
 				kmp.setMotif(motifReverse);
-				kmp.calculNext();
-				kmp.algo();
+				kmp.preCalcul();
+				kmp.calcul();
 				kmp.setMotif(motifComp);
-				kmp.calculNext();
-				kmp.algo();
+				kmp.preCalcul();
+				kmp.calcul();
 				kmp.setMotif(motifReverseComp);
-				kmp.calculNext();
-				kmp.algo();
+				kmp.preCalcul();
+				kmp.calcul();
 				listeOccurences = kmp.getListOccurences();
 				kmp.resetListOccurences();
-				for(int j=0;j<listeOccurences.size();j++){
-					//int occurence = listeOccurences.get(j);
-					p.println(i + " " + listeOccurences.get(j));
+				for(int j=0;j<listeOccurences.size();j+=10){
+					int occurence = listeOccurences.get(j);
+					p.println(i + " " + occurence);			
 				}
-	//			System.out
-	//					.println(((float) i / (sequence.length - longMotif)) * 100);
+				System.out
+						.println(((float) i / (sequence.length - longMotif)) * 100);
 			}
 			p.close();
 
@@ -64,7 +64,7 @@ public class Main {
 		}
 		long stopTime = System.currentTimeMillis();
 		long elapsedTime = stopTime - startTime;
-		System.out.println(elapsedTime);
+		System.out.println(elapsedTime/3600);
 
 	}
 
