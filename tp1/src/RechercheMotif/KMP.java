@@ -3,7 +3,7 @@ package RechercheMotif;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KMP {
+public class KMP extends AlgoRecherche{
 
 	private char[] sequence;
 	private int[] next;
@@ -12,17 +12,15 @@ public class KMP {
 	private List<Integer> occurences;
 	
 	public KMP(char[] sequence, char[] motif) {
-		this.sequence = sequence;
-		this.motif = motif;
+		super(sequence, motif);
 		this.nbRes = 0;
-		occurences = new ArrayList<Integer>();
 	}
 
 	public void setMotif(char[] motif){
 		this.motif = motif;
 	}
 	
-	public void calculNext() {
+	public void preCalcul() {
 		this.next = new int[this.motif.length + 1];
 		this.next[0] = -1;
 		if(this.motif.length > 1)
@@ -70,7 +68,7 @@ public class KMP {
 		}
 	}
 
-	public void algo() {
+	public void calcul() {
 		int indice = 0;
 		for (int i = 0; i < this.sequence.length; i++) {
 			/* Cas où la lettre suivante correspond par rapport au motif */
