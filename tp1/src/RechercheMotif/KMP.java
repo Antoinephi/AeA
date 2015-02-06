@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KMP extends AlgoRecherche{
-
-	private char[] sequence;
-	private int[] next;
-	private char[] motif;
+	
+	private int next[];
 	private int nbRes;
-	private List<Integer> occurences;
 	
 	public KMP(char[] sequence, char[] motif) {
 		super(sequence, motif);
@@ -70,6 +67,7 @@ public class KMP extends AlgoRecherche{
 
 	public void calcul() {
 		int indice = 0;
+		this.preCalcul();
 		for (int i = 0; i < this.sequence.length; i++) {
 			/* Cas où la lettre suivante correspond par rapport au motif */
 			if (this.sequence[i] == this.motif[indice]) {
@@ -79,6 +77,7 @@ public class KMP extends AlgoRecherche{
 					this.nbRes++;
 //					System.out.println(this.nbRes + "e occurence : "
 //							+ (i - indice + 1) + "->" + i);
+					/**Position de l'occurence**/
 					this.occurences.add(i-indice+1);
 				}
 				indice = (indice + 1) % (this.motif.length);

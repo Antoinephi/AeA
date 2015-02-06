@@ -5,9 +5,9 @@ import java.util.List;
 
 public abstract class AlgoRecherche implements Algorithme {
 
-	private char[] sequence;
-	private char[] motif;
-	private List<Integer> occurences;
+	protected char[] sequence;
+	protected char[] motif;
+	protected List<Integer> occurences;
 	
 	
 	public AlgoRecherche(char[] sequence, char[] motif){

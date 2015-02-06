@@ -2,7 +2,11 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import Conversion.ConvertSequence;
 import Parser.FastaParser;
@@ -22,6 +26,7 @@ public class Main {
 		KMP kmp = new KMP(sequence, motif);
 		List<Integer> listeOccurences = null;
 		PrintWriter p;
+		Map<Integer, Integer> toutesOccurences = new LinkedHashMap<Integer, Integer>();
 		try {
 			p = new PrintWriter("file.txt", "UTF-8");
 		
@@ -33,26 +38,34 @@ public class Main {
 				char[] motifComp = c.getComp();
 				char[] motifReverseComp = c.getReverseComp();
 				kmp.setMotif(motif);
-				kmp.preCalcul();
 				kmp.calcul();
 				kmp.setMotif(motifReverse);
-				kmp.preCalcul();
 				kmp.calcul();
 				kmp.setMotif(motifComp);
-				kmp.preCalcul();
 				kmp.calcul();
 				kmp.setMotif(motifReverseComp);
-				kmp.preCalcul();
 				kmp.calcul();
 				listeOccurences = kmp.getListOccurences();
-				kmp.resetListOccurences();
-				for(int j=0;j<listeOccurences.size();j+=10){
+				for(int j=0;j<listeOccurences.size();j++){
 					int occurence = listeOccurences.get(j);
-					p.println(i + " " + occurence);			
+					if(toutesOccurences.containsKey(occurence))
+						toutesOccurences.put(occurence, toutesOccurences.get(occurence)+1);
+					else
+						toutesOccurences.put(occurence, 1);
+					//p.println(i + " " + occurence);			
 				}
+				kmp.resetListOccurences();
+
 				System.out
 						.println(((float) i / (sequence.length - longMotif)) * 100);
 			}
+			Set<Integer> keys = toutesOccurences.keySet();
+			Iterator<Integer> it = keys.iterator();
+			for(int i = 0; i<toutesOccurences.size(); i++){
+				int indice = it.next();
+				p.println(indice + " " + toutesOccurences.get(indice));
+			}
+			
 			p.close();
 
 		} catch (FileNotFoundException e) {
@@ -64,7 +77,7 @@ public class Main {
 		}
 		long stopTime = System.currentTimeMillis();
 		long elapsedTime = stopTime - startTime;
-		System.out.println(elapsedTime/3600);
+		System.out.println(elapsedTime/60 + "s");
 
 	}
 
