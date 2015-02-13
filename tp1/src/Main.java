@@ -10,7 +10,10 @@ import java.util.TreeMap;
 
 import Conversion.ConvertSequence;
 import Parser.FastaParser;
+import RechercheMotif.AlgoRecherche;
+import RechercheMotif.Algorithme;
 import RechercheMotif.KMP;
+import RechercheMotif.Naif;
 
 public class Main {
 
@@ -25,8 +28,13 @@ public class Main {
 				"resources/test.fa");
 		char[] sequence = f.readFile();
 		char[] motif = Arrays.copyOfRange(sequence, 0, longMotif);
-		KMP kmp = new KMP(sequence, motif);
-		List<Integer> listeOccurences = null;
+		AlgoRecherche kmp = 
+				new KMP(sequence,motif);
+		kmp.setMotif(motif);
+		kmp.calculTous(10);
+		
+		/*new KMP(sequence, motif);*/
+		/*List<Integer> listeOccurences = null;
 		PrintWriter p;
 		Map<Integer, Integer> toutesOccurences = new TreeMap<Integer, Integer>();
 		try {
@@ -76,7 +84,8 @@ public class Main {
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
+		
 		long stopTime = System.currentTimeMillis();
 		long elapsedTime = stopTime - startTime;
 		System.out.println(elapsedTime/60 + "s");

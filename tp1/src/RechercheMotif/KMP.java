@@ -88,14 +88,6 @@ public class KMP extends AlgoRecherche{
 			}
 		}
 	}
-	/**TEMPORAIRE A DEGAGER **/
-	public void resetListOccurences(){
-		this.occurences = new ArrayList<Integer>();
-	}
-	
-	public List<Integer> getListOccurences(){
-		return this.occurences;
-	}
 
 	/*
 	 * public void test() { this.next = new int[this.motif.length + 1];
