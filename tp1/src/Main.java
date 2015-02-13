@@ -3,10 +3,10 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import Conversion.ConvertSequence;
 import Parser.FastaParser;
@@ -19,14 +19,16 @@ public class Main {
 		long startTime = System.currentTimeMillis();
 
 		int longMotif = 5;
+		/*FastaParser f = new FastaParser(
+				"resources/chromosome13_NT_009952.14.fasta");*/
 		FastaParser f = new FastaParser(
-				"resources/chromosome13_NT_009952.14.fasta");
+				"resources/test.fa");
 		char[] sequence = f.readFile();
 		char[] motif = Arrays.copyOfRange(sequence, 0, longMotif);
 		KMP kmp = new KMP(sequence, motif);
 		List<Integer> listeOccurences = null;
 		PrintWriter p;
-		Map<Integer, Integer> toutesOccurences = new LinkedHashMap<Integer, Integer>();
+		Map<Integer, Integer> toutesOccurences = new TreeMap<Integer, Integer>();
 		try {
 			p = new PrintWriter("file.txt", "UTF-8");
 		
