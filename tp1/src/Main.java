@@ -3,10 +3,10 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 import Conversion.ConvertSequence;
 import Parser.FastaParser;
@@ -28,7 +28,7 @@ public class Main {
 		KMP kmp = new KMP(sequence, motif);
 		List<Integer> listeOccurences = null;
 		PrintWriter p;
-		Map<Integer, Integer> toutesOccurences = new TreeMap<Integer, Integer>();
+		Map<Integer, Integer> toutesOccurences = new LinkedHashMap<Integer, Integer>();
 		try {
 			p = new PrintWriter("file.txt", "UTF-8");
 		
