@@ -5,9 +5,9 @@ import java.util.List;
 
 public class KMP {
 
-	/*private char[] sequence;*/
+	private char[] sequence;
 	private int[] next;
-/*	private char[] motif;*/
+	private char[] motif;
 	private int nbRes;
 	private List<Integer> occurences;
 	

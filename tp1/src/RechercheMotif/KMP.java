@@ -1,7 +1,5 @@
 package RechercheMotif;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class KMP extends AlgoRecherche{
 	
