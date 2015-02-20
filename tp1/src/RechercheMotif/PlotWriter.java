@@ -19,13 +19,13 @@ public class PlotWriter {
 		int total = 0;
 		for(int i = 0; i < length; i++){
 			for(int j = 0; j<occurences.size(); j++){
-				if((i*j)%100 == 0) {
-					p.println(i + " " + total/100);
-					System.out.println(i + " " + total/100);
+				//if((i*j)%100 == 0) {
+					p.println(i + " " + occurences.get(j));
+					System.out.println(i + " " + occurences.get(j));
 					total = 0;
-				} else {
+				//} else {
 					total += occurences.get(j);
-				}
+				//}
 			}
 		}
 		

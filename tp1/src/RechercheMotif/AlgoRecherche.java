@@ -35,7 +35,8 @@ public abstract class AlgoRecherche implements Algorithme {
 	
 	public void calculTous(int n){
 		try {
-			//PrintWriter p = new PrintWriter("file.txt", "UTF-8");
+			int total = 0;
+			PrintWriter p = new PrintWriter("file.txt", "UTF-8");
 			for(int i=0;i<this.sequence.length-this.motif.length-1;i++){
 				this.resetListOccurences();
 				char[] motif_n = new char[n];
@@ -45,25 +46,58 @@ public abstract class AlgoRecherche implements Algorithme {
 				ConvertSequence seq = new ConvertSequence(motif_n);
 				this.setMotif(motif_n);
 				this.calcul();
-				PlotWriter p = new PlotWriter("file_test.txt");
-				p.writePlot(this.sequence.length-this.motif.length-1, occurences);
-				/*for(int k = 0;k<this.occurences.size();k++){
-					System.out.println(i + " " + this.occurences.get(k));
-					p.println(i + " " + this.occurences.get(k));
-				}*/
-			/*	this.setMotif(seq.getReverse());
+				
+				for(int k = 0;k<this.occurences.size();k++){
+					if(total > k/n){
+						System.out.println(i + " " + this.occurences.get(k));
+						p.println(i + " " + this.occurences.get(k));
+						total = 0;
+					} else {
+						total++;
+					}
+
+				}
+				this.setMotif(seq.getReverse());
 				this.calcul();
 				for(int k = 0;k<this.occurences.size();k++){
-					p.println(i + " " + this.occurences.get(i));
+					if(total > (k/n)+i){
+						System.out.println(i + " " + this.occurences.get(k));
+						p.println(i + " " + this.occurences.get(k));
+						total = 0;
+					} else {
+						total++;
+					}
+
 				}
 				this.setMotif(seq.getComp());
 				this.calcul();
 				for(int k = 0;k<this.occurences.size();k++){
-					p.println(i + " " + this.occurences.get(i));
-				}*/
+					if(total > (k/n)+i){
+						System.out.println(i + " " + this.occurences.get(k));
+						p.println(i + " " + this.occurences.get(k));
+						total = 0;
+					} else {
+						total++;
+					}
+
+				}
+				this.setMotif(seq.getReverseComp());
+				this.calcul();
+				for(int k = 0;k<this.occurences.size();k++){
+					if(total > (k/n)+i){
+						System.out.println(i + " " + this.occurences.get(k));
+						p.println(i + " " + this.occurences.get(k));
+						total = 0;
+					} else {
+						total++;
+					}
+
+				}
 
 			}
-			//p.close();
+			/*PlotWriter p = new PlotWriter("file_test.txt");
+			p.writePlot(this.sequence.length-this.motif.length-1, occurences);*/
+			p.close();
 
 		}catch (FileNotFoundException e) {
 			e.printStackTrace();

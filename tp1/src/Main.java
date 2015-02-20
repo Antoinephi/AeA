@@ -20,10 +20,10 @@ public class Main {
 		AlgoRecherche kmp = 
 				new KMP(sequence,motif);
 		kmp.setMotif(motif);
-		kmp.calculTous(10);				
+		kmp.calculTous(5);				
 		long stopTime = System.currentTimeMillis();
 		long elapsedTime = stopTime - startTime;
-		System.out.println(elapsedTime/60 + "s");
+		System.out.println(elapsedTime/1000 + "s");
 
 	}
 
