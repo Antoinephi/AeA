@@ -35,8 +35,9 @@ public class Graphe {
 	 */
 	private Liste lastSucc(int s){
 		Liste current = this.listeSucc[s];
-		while(current.getNextElement() != null){
-			current = current.getNextElement();
+		Liste l;
+		while((l = current.getNextElement()) != null){
+			current = l;
 		}
 		return current;
 	}
@@ -67,5 +68,13 @@ public class Graphe {
 	}
 
 	public static void main(String[] args) {
+		
+		String[] dico3court = { "gag", "gai", "gaz", "gel", "gks", "gin",
+				"gnu", "glu", "gui", "guy", "gre", "gue", "ace", "acm", "agi",
+				"ait", "aie", "ail", "air", "and", "alu", "ami", "arc", "are",
+				"art", "apr", "avr", "sur", "mat", "mur" };
+		Graphe g = new Graphe(dico3court);
+		g.lettreQuiSaute();
+
 	}
 }

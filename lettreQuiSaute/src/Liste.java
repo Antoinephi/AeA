@@ -29,7 +29,7 @@ public class Liste {
 	
 	/**
 	 * Retourne l'élément suivant de la liste chainee
-	 * @return
+	 * @return le prochain élément de la liste chainée, null si aucun
 	 */
 	public Liste getNextElement(){
 		return this.next;
