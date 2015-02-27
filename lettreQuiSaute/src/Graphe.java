@@ -7,6 +7,13 @@ public class Graphe {
 		this.lesMots = lesMots;
 		this.nb = lesMots.length;
 		this.listeSucc = new Liste[this.nb];
+		this.initList();
+	}
+	
+	private void initList(){
+		for(int i=0;i<this.lesMots.length;i++){
+			this.listeSucc[i] = new Liste(i,null);
+		}
 	}
 	
 	/**
@@ -33,12 +40,16 @@ public class Graphe {
 	 * @param s
 	 * @return
 	 */
+	@SuppressWarnings("finally")
 	private Liste lastSucc(int s){
 		Liste current = this.listeSucc[s];
-		while(current.getNextElement() != null){
-			current = current.getNextElement();
-		}
-		return current;
+			try {
+				while(current.getNextElement() != null){
+					current = current.getNextElement();
+				}
+			} finally {
+				return current;
+			}
 	}
 
 	public void lettreQuiSaute() {
@@ -66,6 +77,16 @@ public class Graphe {
 		return false;
 	}
 
-	public static void main(String[] args) {
-	}
+
+public static void main (String[] args) {
+    String[] dico3court = {
+       "gag", "gai", "gaz", "gel", "gks", "gin", 
+       "gnu", "glu", "gui", "guy", "gre", "gue", 
+       "ace", "acm", "agi", "ait", "aie", "ail", 
+       "air", "and", "alu", "ami", "arc", "are", 
+       "art", "apr", "avr", "sur", "mat", "mur" } ;
+    Graphe g = new Graphe (dico3court) ;
+    g.lettreQuiSaute() ;
+    //afficher (g) ;
+  }
 }
