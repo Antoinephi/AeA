@@ -58,7 +58,7 @@ public class Graphe {
 
 	public void lettreQuiSaute() {
 		for (int i = 0; i < this.nb; i++) {
-			for (int j = 0; j < this.nb; j++) {
+			for (int j = i+1; j < this.nb; j++) {
 				if (diffUneLettre(this.lesMots[i], this.lesMots[j]))
 					this.ajouterArete(i, j);
 			}
@@ -66,6 +66,16 @@ public class Graphe {
 
 	}
 
+	public void afficher(){
+		for(int i = 0; i < this.listeSucc.length; i++){
+			Liste l = this.listeSucc[i];
+			while((l = l.getNextElement()) != null){
+				System.out.print(this.lesMots[l.getElement()] + " -> ");
+			}
+			System.out.println();
+		}
+	}
+	
 	private boolean diffUneLettre(String a, String b) {
 		// a et b supposees de meme longueur
 		int i = 0;
@@ -86,8 +96,8 @@ public class Graphe {
 				"gnu", "glu", "gui", "guy", "gre", "gue", "ace", "acm", "agi",
 				"ait", "aie", "ail", "air", "and", "alu", "ami", "arc", "are",
 				"art", "apr", "avr", "sur", "mat", "mur" };
-		Graphe g = new Graphe(dico3court);
+		Graphe g = new Graphe(Dicos.dico5);
 		g.lettreQuiSaute();
-		// afficher (g) ;
+		g.afficher();
 	}
 }
