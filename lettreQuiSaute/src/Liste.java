@@ -36,4 +36,13 @@ public class Liste {
 		return this.next;
 	}
 	
+	
+	public void setElement(int element){
+		this.element = element;
+	}
+	
+	public void setNextElement(Liste liste){
+		this.next = liste;
+	}
+
 }
