@@ -64,6 +64,8 @@ public class Graphe {
 
 	private boolean diffUneLettre(String a, String b) {
 		// a et b supposees de meme longueur
+		System.out.println(a);
+		System.out.println(b);
 		int i = 0;
 		while (i < a.length() && a.charAt(i) == b.charAt(i))
 			++i;
