@@ -1,7 +1,6 @@
 
 /**
  * Liste chainée d'entiers
- * @author philippe
  *
  */
 public class Liste {
@@ -35,7 +34,6 @@ public class Liste {
 	public Liste getNextElement(){
 		return this.next;
 	}
-	
 	
 	public void setElement(int element){
 		this.element = element;
