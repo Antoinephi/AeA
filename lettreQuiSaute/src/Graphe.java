@@ -14,4 +14,8 @@ public class Graphe {
 		
 	}
 	
+	static void lettreQuiSaute(Graphe g){
+		
+	}
+	
 }
