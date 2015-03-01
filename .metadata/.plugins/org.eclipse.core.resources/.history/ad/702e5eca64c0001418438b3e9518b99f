@@ -1,0 +1,143 @@
+package Tests;
+
+/**
+ * Classe permettant de vérifier le simulateur avec des exemples version
+ * brackets
+ * 
+ * @author Delphine
+ *
+ */
+public class CheckSimulateur {
+	char[] preMiARN;
+
+	public CheckSimulateur(char[] preMiARN) {
+		this.preMiARN = preMiARN;
+	}
+
+	/**
+	 * Vérifie que la taille de la tige boucle est correcte
+	 * 
+	 * @return
+	 */
+	public boolean checkSize() {
+		return ((70 <= this.preMiARN.length) && (this.preMiARN.length <= 100));
+	}
+
+	/**
+	 * Vérifie qu'il y a au moins 48 nucléotides dans des apppariements
+	 * 
+	 * @return
+	 */
+	public boolean enoughMatching() {
+		int nb = 0;
+		for (int i = 0; i < this.preMiARN.length; i++) {
+			if ((preMiARN[i] == '(') || (preMiARN[i] == ')')) {
+				nb++;
+			}
+		}
+		return (nb >= 48);
+	}
+
+	/**
+	 * Vérifie que les appariements se font bien dans le bon ordre
+	 * 
+	 * @return
+	 */
+	public boolean goodMatching() {
+		boolean before = true;
+		for (int i = 0; i < this.preMiARN.length; i++) {
+			if (this.preMiARN[i] == ')') {
+				before = false;
+			}
+			if ((before == false) && (this.preMiARN[i] == '(')) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Vérifie que le nombre d'appariements à la suite est toujours au moins de
+	 * 3
+	 * 
+	 * @return
+	 */
+	public boolean atLeastThreeMatching() {
+		int i = 0;
+		while (i < this.preMiARN.length) {
+			if (preMiARN[i] == '(') {
+				if ((preMiARN[i + 1] != '(') || (preMiARN[i + 2] != '(')) {
+					return false;
+				}
+				while ((i<this.preMiARN.length)&&(preMiARN[i] == '(')) {
+					i++;
+				}
+			} else {
+				if (preMiARN[i] == ')') {
+					if ((preMiARN[i + 1] != ')') || (preMiARN[i + 2] != ')')) {
+						return false;
+					}
+					while ((i<this.preMiARN.length)&&(preMiARN[i] == ')')) {
+						i++;
+					}
+				} else {
+					i++;
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Vérifie que les boucles ne dépassent pas le quotas autorisé
+	 * 
+	 * @return
+	 */
+	public boolean nbInLoop() {
+		int i = this.preMiARN.length / 2;
+		int j = i - 1;
+		int nb = 0;
+		/* Vérification de la boucle finale */
+		while (this.preMiARN[j] == '.') {
+			nb++;
+			j--;
+		}
+		while (this.preMiARN[i] == '.') {
+			nb++;
+			i++;
+		}
+		if (nb > 8) {
+			System.out.println("boucle finale");
+			return false;
+		}
+		/* Vérification à gauche (pas plus de 3) */
+		while (j >= 0) {
+			if (preMiARN[j] == '.') {
+				if ((j - 3 >= 0) && (preMiARN[j - 3] == '.')) {
+					return false;
+				}
+				j -= 3;
+			}
+			while ((j >= 0) && (preMiARN[j] == '(')) {
+				j--;
+			}
+			j--;
+		}
+		System.out.println("Boucles gauche correctes ");
+
+		while (i < preMiARN.length) {
+			if (preMiARN[i] == '.') {
+				if ((j + 3 < preMiARN.length) && (preMiARN[j + 3] == '.')) {
+					return false;
+				}
+				j += 3;
+			}
+			while ((i < preMiARN.length) && (preMiARN[i] == '(')) {
+				i++;
+			}
+			i++;
+		}
+		return true;
+	}
+
+}

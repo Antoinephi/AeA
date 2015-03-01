@@ -1,0 +1,12 @@
+package Tests;
+
+public class Main {
+	
+	public static void main(String[] args) {
+		Simulateur sim = new Simulateur();
+		char[] preMiARN = sim.genPreMiARNBoucles(true);
+		CheckSimulateur check = new CheckSimulateur(preMiARN);
+		System.out.println("Taille : "+check.checkSize());
+	}
+	
+}
