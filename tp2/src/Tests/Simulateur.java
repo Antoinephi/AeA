@@ -6,7 +6,7 @@ public class Simulateur {
 
 	}
 
-	/* GÃ©nÃ¨re un prÃ© microARN sans boucle A METTRE DANS UN FICHIER GENOME */
+	/* Génère un pré microARN sans boucle A METTRE DANS UN FICHIER GENOME */
 	public char[] genPreMiARNSansBoucle(boolean brackets) {
 		char[] alphabet = { 'A', 'C', 'U', 'G' };
 		char[] reverseAlphabet = { 'U', 'G', 'A', 'C' };
@@ -32,7 +32,7 @@ public class Simulateur {
 		return preMiARN;
 	}
 
-	/* GÃ©nÃ¨re un prÃ© microARN avec des boucles */
+	/* Génère un pré microARN avec des boucles */
 	public char[] genPreMiARNBoucles(boolean brackets) {
 		char[] alphabet = { 'A', 'C', 'U', 'G' };
 		char[] reverseAlphabet = { 'U', 'G', 'A', 'C' };
@@ -49,7 +49,7 @@ public class Simulateur {
 		if (nucleotidesSansBoucle % 2 == 1) {
 			nucleotidesSansBoucle--;
 		}
-		System.out.println("nucleotides appariÃ©s : " + nucleotidesSansBoucle);
+		System.out.println("nucleotides appariées : " + nucleotidesSansBoucle);
 		int nucleotidesDansBoucle = taille - nucleotidesSansBoucle;
 		System.out
 				.println("nucleotides dans boucle : " + nucleotidesDansBoucle);
@@ -81,7 +81,7 @@ public class Simulateur {
 
 		/* Insertion du reste des nuclÃ©otides */
 		/* Boucles Ã  gauche de la boucle finale */
-		System.out.println("\nNuclÃ©otides Ã  gauche");
+		System.out.println("\nNucléotides à  gauche");
 		int itmp = i;
 		while (itmp >= 13 && nucleotidesDansBoucle > 0) {
 			int placeBoucle = (int) (Math.random() * (11 - 3) + 3);
@@ -101,7 +101,7 @@ public class Simulateur {
 
 		/* Boucles Ã  droite de la boucle finale */
 		int jtmp = j;
-		System.out.println("\nNuclÃ©otides Ã  droite");
+		System.out.println("\nNucléotides à  droite");
 		while (jtmp <= taille - 13 && nucleotidesDansBoucle > 0) {
 			int placeBoucle = (int) (Math.random() * (11 - 3) + 3);
 			int nbNucleotides = (int) (Math.random() * (4 - 1) + 1);
