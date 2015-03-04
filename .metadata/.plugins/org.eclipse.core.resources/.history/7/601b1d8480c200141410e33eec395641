@@ -6,8 +6,8 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Simulateur sim = new Simulateur();
-		//char[] preMiARN = sim.genPreMiARNBoucles(true);
-		//CheckSimulateur check = new CheckSimulateur(preMiARN);
+		char[] preMiARN = sim.genPreMiARNBoucles(true);
+		CheckSimulateur check = new CheckSimulateur(preMiARN);
 	/*	System.out.println("Taille : "+check.checkSize());
 		System.out.println("Nombre d'appariements correct : "+check.enoughMatching());
 		System.out.println("Ordre des appariements correct : "+ check.goodMatching());
@@ -15,6 +15,7 @@ public class Main {
 		System.out.println("Nombre de nucléotides dans les boucles correct : "+ check.nbInLoop());
 	*/
 		char[] sequence = {'A', 'C', 'G', 'U', 'G', 'U'};
+		char[] sequence1 = {'A', 'C', 'G', 'G', 'C', T A T
 		RecherchePreMiARN algo = new RecherchePreMiARN(sequence);
 		algo.algoNeedlemanAndWunsch();
 	}
