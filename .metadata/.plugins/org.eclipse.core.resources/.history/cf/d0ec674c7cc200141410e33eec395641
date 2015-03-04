@@ -50,7 +50,7 @@ public class RecherchePreMiARN {
 				System.out.println((table.length - i - 1) + " " + (table.length+j));
 				System.out.println(table.length-1);
 				//sub = table[i-1][j-1] + (this.estUnAppariement(this.sequence[i], this.sequence[this.sequence.length-j]) ? 2 : -1);
-				sub = table[i-1][j-1] + (this.estUnAppariement(this.sequence[table.length-i-1], this.sequence[table.length+j]) ? 2 : -1);
+				sub = table[i-1][j-1] + (this.estUnAppariement(this.sequence[table.length-i-4], this.sequence[table.length+j]) ? 2 : -1);
 				del = table[i-1][j] -2;
 				ins = table[i][j-1] -2;
 				

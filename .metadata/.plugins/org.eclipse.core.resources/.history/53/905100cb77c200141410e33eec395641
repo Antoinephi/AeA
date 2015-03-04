@@ -36,21 +36,16 @@ public class RecherchePreMiARN {
 		}
 	
 	public void algoNeedlemanAndWunsch(){
-		int[][] table = new int[this.sequence.length/2][this.sequence.length/2];
+		int[][] table = new int[this.sequence.length/2+1][this.sequence.length/2+1];
 		int sub, del, ins;
 		table[0][0] = 0;
-		/* Initialisation du tableau */
 		for(int i=1;i<table.length;i++){
 			table[i][0] = -2*i;
 			table[0][i] = -2*i;
 		}
 		for(int i=1;i<table.length;i++){
-			for(int j=1;j<table.length-1;j++){
-				System.out.println("i : "+i+" j : "+j);
-				System.out.println((table.length - i - 1) + " " + (table.length+j));
-				System.out.println(table.length-1);
-				//sub = table[i-1][j-1] + (this.estUnAppariement(this.sequence[i], this.sequence[this.sequence.length-j]) ? 2 : -1);
-				sub = table[i-1][j-1] + (this.estUnAppariement(this.sequence[table.length-i-1], this.sequence[table.length+j]) ? 2 : -1);
+			for(int j=1;j<table.length;j++){
+				sub = table[i-1][j-1] + (this.estUnAppariement(this.sequence[i], this.sequence[this.sequence.length-j]) ? 2 : -1);
 				del = table[i-1][j] -2;
 				ins = table[i][j-1] -2;
 				
