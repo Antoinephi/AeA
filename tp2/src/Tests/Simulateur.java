@@ -81,7 +81,6 @@ public class Simulateur {
 
 		/* Insertion du reste des nuclÃ©otides */
 		/* Boucles Ã  gauche de la boucle finale */
-		System.out.println("\nNucléotides à  gauche");
 		int itmp = i;
 		while (itmp >= 13 && nucleotidesDansBoucle > 0) {
 			int placeBoucle = (int) (Math.random() * (11 - 3) + 3);
@@ -101,7 +100,6 @@ public class Simulateur {
 
 		/* Boucles Ã  droite de la boucle finale */
 		int jtmp = j;
-		System.out.println("\nNucléotides à  droite");
 		while (jtmp <= taille - 13 && nucleotidesDansBoucle > 0) {
 			int placeBoucle = (int) (Math.random() * (11 - 3) + 3);
 			int nbNucleotides = (int) (Math.random() * (4 - 1) + 1);
@@ -120,7 +118,6 @@ public class Simulateur {
 
 		/* Reste des appariements */
 		j--;
-		System.out.println("\nReste des appariements");
 		while (i >= 0 && j < taille) {
 			while ((i >= 0) && (preMiARN[i] != '-')) {
 				i--;
@@ -144,7 +141,6 @@ public class Simulateur {
 		}
 
 		/* Remplissage des derniers restants */
-		System.out.println("\nRemplissage des derniers");
 		if (i > -1) {
 			while (i >= 0) {
 				if (brackets) {

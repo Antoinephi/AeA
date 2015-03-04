@@ -35,7 +35,7 @@ public class RecherchePreMiARN {
 			return false;
 		}
 	
-	public void algoNeedlemanAndWunsch(){
+	public int[][] algoNeedlemanAndWunsch(){
 		int[][] table;
 		System.out.println(this.sequence.length/2+1);
 		table = new int[(this.sequence.length/2)+1][(this.sequence.length/2)+1];
@@ -94,18 +94,93 @@ public class RecherchePreMiARN {
 			}
 			System.out.println();
 		}
+		
+		
+		
+		/* Remontée */
+		int iMax = 0;
+		int jMax = 0;
+		int max = -2;
+		char[] alignement = new char[this.sequence.length];
+		for(int i=1;i<table.length;i++){
+			if(table[i][table[0].length-1] > max){
+				max = table[i][table[0].length-1];
+				iMax = i;
+				jMax = table[0].length-1;
+			}
+		}
+		for(int j=1;j<table[0].length;j++){
+			if(table[table[0].length-1][j] > max){
+				max = table[table[0].length-1][j];
+				iMax = table[0].length-1;
+				jMax = j;
+			}
+		}
+		System.out.println("max : "+max);
+		System.out.println("i : "+iMax);
+		System.out.println("j : "+jMax);
+		for(int k = 0;k<this.sequence.length;k++){
+			alignement[k] = this.sequence[k];
+		}
+		while(iMax!=0 || jMax!=0){
+			if(tableI[iMax][jMax] == iMax){
+				alignement[table.length+1-iMax] = '_';
+				jMax--;
+			}
+			else if(tableJ[iMax][jMax] == jMax){
+				alignement[table.length/2+jMax] = '_';
+				iMax--;
+			} else {
+				if(table[iMax][jMax] == table[iMax-1][jMax-1]-1){
+					alignement[alignement.length/2-iMax] = '_';
+					alignement[alignement.length/2+jMax-1] = '_';
+				}
+				iMax--;
+				jMax--;
+			}
+		}
+		for(int l=0;l<alignement.length;l++){
+			System.out.print(alignement[l]+" ");
+		}
+		System.out.println();
+		return table;
+	}
+	
+	public char[] alignement(int[][] NandWresult){
+		int iMax = 0;
+		int jMax = 0;
+		int max = 0;
+		char[] alignement = new char[this.sequence.length];
+		for(int i=0;i<NandWresult.length;i++){
+			if(NandWresult[i][NandWresult[0].length-1] > max){
+				max = NandWresult[i][NandWresult[0].length-1];
+				iMax = i;
+				jMax = NandWresult[0].length-1;
+			}
+		}
+		for(int j=0;j<NandWresult[0].length;j++){
+			if(NandWresult[NandWresult[0].length-1][j] > max){
+				max = NandWresult[NandWresult[0].length-1][j];
+				iMax = NandWresult[0].length-1;
+				jMax = j;
+			}
+		}
+		System.out.println("max : "+max);
+		System.out.println("i : "+iMax);
+		System.out.println("j : "+jMax);
+		return alignement;
 	}
 	
 
 	
 	public static void main(String[] args) {
-		char[] sequence = {'A','U','A','U','C','A'};
-		/*char[] sequence1 = {'C','U','A','C','A','G','U','A','G','C','C','G','A','U','A'};
-		char[] sequence2 = {'A','U','A','G','C','C','G','U','A','C','U','G','U','A','G'};
-		char[] sequence3 = {'U','A','A'};*/
-		RecherchePreMiARN algo = new RecherchePreMiARN(sequence);
-		algo.algoNeedlemanAndWunsch();
-		
+		char[] sequence = {'U','A','U','C'};
+		char[] sequence1 = {'C','U','A','C','A','G','U','A','G','C','C','G','A','U','A'};
+		char[] sequence2 = {'A','U','A','G','C','C','G','U','A','C','U','G','U','A','G','G'};
+		char[] sequence3 = {'A','A'};
+		RecherchePreMiARN algo = new RecherchePreMiARN(sequence1);
+		int[][] result = algo.algoNeedlemanAndWunsch();
+		algo.alignement(result);
 	}
 	
 }

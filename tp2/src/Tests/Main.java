@@ -5,8 +5,8 @@ import RechercheMotif.RecherchePreMiARN;
 public class Main {
 	
 	public static void main(String[] args) {
-		//Simulateur sim = new Simulateur();
-		//char[] preMiARN = sim.genPreMiARNBoucles(true);
+		Simulateur sim = new Simulateur();
+		char[] preMiARN = sim.genPreMiARNBoucles(false);
 		//CheckSimulateur check = new CheckSimulateur(preMiARN);
 	/*	System.out.println("Taille : "+check.checkSize());
 		System.out.println("Nombre d'appariements correct : "+check.enoughMatching());
@@ -14,10 +14,11 @@ public class Main {
 		System.out.println("Au moins trois appariements : "+check.atLeastThreeMatching());
 		System.out.println("Nombre de nucléotides dans les boucles correct : "+ check.nbInLoop());
 	*/ 
-		char[] sequence = {'C','U','A','G'};
+		char[] sequence = {'C','C','A','U','A','G','C','G'};
 		char[] sequence1 = {'U','C','U','A','C','A','G','U','A','C','G','G','C','U','A','U'};
 		RecherchePreMiARN algo = new RecherchePreMiARN(sequence);
-		algo.algoNeedlemanAndWunsch();
+		int[][] result = algo.algoNeedlemanAndWunsch();
+		algo.alignement(result);
 	}
 	
 }
