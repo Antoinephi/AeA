@@ -16,8 +16,9 @@ public class Main {
 	*/ 
 		char[] sequence = {'G','C','C','U','A','G','C','G'};
 		char[] sequence1 = {'U','C','U','A','C','A','G','U','A','C','G','G','C','U','A','U'};
-		RecherchePreMiARN algo = new RecherchePreMiARN(sequence);
+		RecherchePreMiARN algo = new RecherchePreMiARN(preMiARN);
 		char[] result = algo.algoNeedlemanAndWunsch();
+		System.out.println(algo.isPreMiARN(result));
 	}
 	
 }
