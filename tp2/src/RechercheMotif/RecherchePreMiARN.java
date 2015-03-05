@@ -9,7 +9,7 @@ public class RecherchePreMiARN {
 		this.sequence = sequence;
 	}
 	
-	
+	/* A retirer avant de rendre ? */
 	public void calcul(){
 		for(int i = this.sequence.length - (this.sequence.length/2+1), j = this.sequence.length/2; i >= 0 && j <= this.sequence.length; i--, j++){
 			
@@ -19,6 +19,7 @@ public class RecherchePreMiARN {
 			
 		}		
 	}
+	
 	/**
 	 * Verifie si les 2 nucléotides sont des complémentaires ou non via un parcours de tableau à 2 dimensions
 	 * chaque dimension contenant un des complémentaires à l'indice i
@@ -35,7 +36,11 @@ public class RecherchePreMiARN {
 			return false;
 		}
 	
-	public int[][] algoNeedlemanAndWunsch(){
+	/**
+	 * Algorithme d'alignement de séquence Needleman and Wunsch adapté pour la recherche de pré micro ARN
+	 * @return l'alignement de la séquence 
+	 */
+	public char[] algoNeedlemanAndWunsch(){
 		int[][] table;
 		System.out.println(this.sequence.length/2+1);
 		table = new int[(this.sequence.length/2)+1][(this.sequence.length/2)+1];
@@ -143,7 +148,7 @@ public class RecherchePreMiARN {
 			System.out.print(alignement[l]+" ");
 		}
 		System.out.println();
-		return table;
+		return alignement;
 	}
 	
 	public char[] alignement(int[][] NandWresult){
@@ -171,7 +176,26 @@ public class RecherchePreMiARN {
 		return alignement;
 	}
 	
-
+	/**
+	 * Permet de vérifier si l'alignement trouvée par Needleman et Wunsch peut être un préMicro ARN
+	 * @param alignement
+	 * @return true or false si l'alignement peut être un préMiARN ou non
+	 */
+	public boolean isPreMiARN(char[] alignement){
+		/* Bonne taille */
+		if((alignement.length < 70) && (alignement.length > 100))
+				return false;
+		
+		/* Bon nombre d'appariements */
+		int appariements = 0;
+		for(int i=0;i<alignement.length;i++){
+			if(alignement[i] != '_')
+				appariements++;
+		}
+		if(appariements < 48)
+			return false;
+		return true;
+	}
 	
 	public static void main(String[] args) {
 		char[] sequence = {'U','A','U','C'};
@@ -179,8 +203,7 @@ public class RecherchePreMiARN {
 		char[] sequence2 = {'A','U','A','G','C','C','G','U','A','C','U','G','U','A','G','G'};
 		char[] sequence3 = {'A','A'};
 		RecherchePreMiARN algo = new RecherchePreMiARN(sequence1);
-		int[][] result = algo.algoNeedlemanAndWunsch();
-		algo.alignement(result);
+		char[] result = algo.algoNeedlemanAndWunsch();
 	}
 	
 }

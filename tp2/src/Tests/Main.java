@@ -14,11 +14,10 @@ public class Main {
 		System.out.println("Au moins trois appariements : "+check.atLeastThreeMatching());
 		System.out.println("Nombre de nucléotides dans les boucles correct : "+ check.nbInLoop());
 	*/ 
-		char[] sequence = {'C','C','A','U','A','G','C','G'};
+		char[] sequence = {'G','C','C','U','A','G','C','G'};
 		char[] sequence1 = {'U','C','U','A','C','A','G','U','A','C','G','G','C','U','A','U'};
 		RecherchePreMiARN algo = new RecherchePreMiARN(sequence);
-		int[][] result = algo.algoNeedlemanAndWunsch();
-		algo.alignement(result);
+		char[] result = algo.algoNeedlemanAndWunsch();
 	}
 	
 }
