@@ -8,6 +8,7 @@ public class Graphe {
 		this.nb = lesMots.length;
 		this.listeSucc = new Liste[this.nb];
 		this.initList();
+		
 	}
 
 	private void initList() {
@@ -69,6 +70,7 @@ public class Graphe {
 	public void afficher(){
 		for(int i = 0; i < this.listeSucc.length; i++){
 			Liste l = this.listeSucc[i];
+			System.out.print(this.lesMots[l.getElement()] + " -> ");
 			while((l = l.getNextElement()) != null){
 				System.out.print(this.lesMots[l.getElement()] + " -> ");
 			}
@@ -78,8 +80,6 @@ public class Graphe {
 	
 	private boolean diffUneLettre(String a, String b) {
 		// a et b supposees de meme longueur
-		System.out.println(a);
-		System.out.println(b);
 		int i = 0;
 		while (i < a.length() && a.charAt(i) == b.charAt(i))
 			++i;
@@ -94,10 +94,7 @@ public class Graphe {
 	}
 
 	public static void main(String[] args) {
-		String[] dico3court = { "gag", "gai", "gaz", "gel", "gks", "gin",
-				"gnu", "glu", "gui", "guy", "gre", "gue", "ace", "acm", "agi",
-				"ait", "aie", "ail", "air", "and", "alu", "ami", "arc", "are",
-				"art", "apr", "avr", "sur", "mat", "mur" };
+		String[] dico3court = { "gag", "gai", "gaz", "gel" };
 		Graphe g = new Graphe(Dicos.dico5);
 		g.lettreQuiSaute();
 		g.afficher();
