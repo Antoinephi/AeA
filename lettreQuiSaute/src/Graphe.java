@@ -3,6 +3,7 @@ public class Graphe {
 	private Liste[] listeSucc;
 	private int nb;
 	private boolean[] dejaVu;
+	private int pere[];
 
 	public Graphe(String[] lesMots) {
 		this.lesMots = lesMots;
@@ -10,6 +11,7 @@ public class Graphe {
 		this.listeSucc = new Liste[this.nb];
 		this.initList();
 		this.dejaVu = new boolean[this.nb];
+		this.pere = new int[this.nb];
 	}
 
 	private void initList() {
