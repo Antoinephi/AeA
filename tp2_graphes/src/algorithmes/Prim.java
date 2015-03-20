@@ -5,12 +5,12 @@ import java.util.LinkedList;
 import generationGraphes.*;
 
 public class Prim {
-	private GrapheValue graphe;
+	private Graphe graphe;
 	private LinkedList<Vertex> Q;
-	private GrapheValue MST;
+	private Graphe MST;
 	private int[] key;
 
-	public Prim(GrapheValue graphe) {
+	public Prim(Graphe graphe) {
 		this.graphe = graphe;
 		this.Q = graphe.getVertex();
 		init_key();
