@@ -10,4 +10,8 @@ public class Vertex {
 	public int getNumber(){
 		return this.number;
 	}
+	
+	public boolean equals(Object o){
+		return this.getNumber() == ((Vertex) o).getNumber();
+	}
 }
