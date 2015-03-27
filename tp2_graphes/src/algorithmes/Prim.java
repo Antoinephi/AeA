@@ -1,7 +1,6 @@
 package algorithmes;
 
 import generationGraphes.GraphImpl;
-import generationGraphes.GrapheValue;
 import generationGraphes.Vertex;
 
 import java.util.LinkedList;
@@ -56,7 +55,7 @@ public class Prim {
 	
 	public static void main(String[] args) {
 		
-		GrapheValue g = new GrapheValue();
+		GraphImpl g = new GraphImpl();
 		for(int i = 0; i < 9; i++){
 			g.addVertex();
 		}
