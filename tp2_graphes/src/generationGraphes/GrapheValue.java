@@ -6,7 +6,7 @@ import java.util.List;
 import VertexExceptions.VertexAlreadyExistException;
 import VertexExceptions.VertexNotFoundException;
 
-public class GrapheValue implements Graph {
+public class GrapheValue implements GraphItf {
 
 	LinkedList<Vertex> Vertex;
 	LinkedList<Edge> Edges;

@@ -7,14 +7,14 @@ import VertexExceptions.VertexAlreadyExistException;
 import generationGraphes.*;
 
 public class Kruskal {
-	private Graphe graph;
+	private GraphImpl graph;
 
-	public Kruskal(Graphe graph) {
+	public Kruskal(GraphImpl graph) {
 		this.graph = graph;
 	}
 
-	public Graphe algo() throws VertexAlreadyExistException {
-		Graphe mst = new Graphe();
+	public GraphImpl algo() throws VertexAlreadyExistException {
+		GraphImpl mst = new GraphImpl();
 
 		for (int i = 0; i < this.graph.getVertex().size(); i++) {
 			mst.addVertexNumber(this.graph.getVertex().get(i).getNumber());

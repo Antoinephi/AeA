@@ -1,5 +1,6 @@
 package algorithmes;
 
+import generationGraphes.GraphImpl;
 import generationGraphes.GrapheValue;
 import generationGraphes.Vertex;
 
@@ -7,12 +8,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Prim {
-	private Graphe graphe;
+	private GraphImpl graphe;
 	private LinkedList<Vertex> Q;
-	private Graphe MST;
+	private GraphImpl MST;
 	private int[] key;
 
-	public Prim(Graphe graphe) {
+	public Prim(GraphImpl graphe) {
 		this.graphe = graphe;
 		this.Q = graphe.getVertex();
 		init_key();
