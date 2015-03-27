@@ -1,7 +1,5 @@
 package generationGraphes;
 
-import java.util.Iterator;
-
 import VertexExceptions.VertexAlreadyExistException;
 import VertexExceptions.VertexNotFoundException;
 
