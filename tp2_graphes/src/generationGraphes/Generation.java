@@ -20,7 +20,7 @@ public class Generation implements RandomGraphGenerator {
 		for(int i=0;i<n;i++){
 			for(int j=i;j<n;j++){
 				alea = Math.random();
-				if(alea > p){
+				if(alea < p){
 					graphe.addEdge(i, j);
 				}
 			}
@@ -28,7 +28,7 @@ public class Generation implements RandomGraphGenerator {
 		return graphe;
 	}
 	
-	public GraphImpl valueGraph(int n, double p) throws VertexNotFoundException, VertexAlreadyExistException{
+	public GraphImpl generateValueGraph(int n, double p) throws VertexNotFoundException, VertexAlreadyExistException{
 		GraphImpl graphe = generateErdosRenyiGraph(n,p);
 		for(int i=0;i<graphe.getEdges().size();i++){
 			int aleaValue = (int) (Math.random()*(Math.pow(n, 4)-1));
@@ -39,7 +39,8 @@ public class Generation implements RandomGraphGenerator {
 	
 	public static void main(String[] args) throws VertexNotFoundException, VertexAlreadyExistException {
 		Generation generate = new Generation();
-		GraphImpl graphe = generate.valueGraph(5,0.5);
+		GraphImpl graphe = generate.generateValueGraph(5,0.5);
 		graphe.affiche();
+		System.out.println(graphe.generateTxt());
 	}
 }
