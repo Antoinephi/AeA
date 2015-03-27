@@ -8,19 +8,19 @@ import VertexExceptions.VertexNotFoundException;
 
 public class GraphImpl implements GraphItf {
 
-	LinkedList<Vertex> Vertex;
-	LinkedList<Edge> Edges;
+	List<Vertex> Vertex;
+	List<Edge> Edges;
 
 	public GraphImpl() {
 		this.Vertex = new LinkedList<Vertex>();
 		this.Edges = new LinkedList<Edge>();
 	}
 
-	public LinkedList<Vertex> getVertex() {
+	public List<Vertex> getVertex() {
 		return this.Vertex;
 	}
 
-	public LinkedList<Edge> getEdges() {
+	public List<Edge> getEdges() {
 		return this.Edges;
 	}
 
@@ -36,10 +36,14 @@ public class GraphImpl implements GraphItf {
 			this.addVertexNumber(n + i);
 		}
 	}
+	
+	public void addVertex(Vertex v){
+		this.Vertex.add(v);
+	}
+	
 
-	@Override
 	public void addVertex() {
-		Vertex newVertex = new Vertex(this.Vertex.size() - 1);
+		Vertex newVertex = new Vertex(this.Vertex.size());
 		this.Vertex.add(newVertex);
 	}
 
@@ -47,7 +51,6 @@ public class GraphImpl implements GraphItf {
 		this.Vertex.remove(vertex.getNumber());
 	}
 
-	@Override
 	public void addVertexNumber(int i) throws VertexAlreadyExistException {
 		for (int j = 0; j < this.Vertex.size(); j++) {
 			if (this.Vertex.get(j).getNumber() == i)
@@ -61,7 +64,6 @@ public class GraphImpl implements GraphItf {
 		this.Vertex.remove(i);
 	}
 
-	@Override
 	public void addEdge(Vertex v1, Vertex v2) throws VertexNotFoundException {
 		if (!this.Vertex.contains(v1) || !this.Vertex.contains(v2))
 			throw new VertexNotFoundException();
@@ -76,22 +78,31 @@ public class GraphImpl implements GraphItf {
 	public void addEdge(Vertex v1, Vertex v2, int value) {
 		Edge edge = new Edge(v1, v2);
 		edge.setValue(value);
-
 	}
 
-	@Override
 	public void addEdge(int i, int j) throws VertexNotFoundException {
 		if (i > this.Vertex.size() || j > this.Vertex.size())
 			throw new VertexNotFoundException();
 		Edge edge = new Edge(this.Vertex.get(i), this.Vertex.get(j));
 		this.Edges.add(edge);
 	}
+	
+	public void addEdge(int i, int j, int value) throws VertexNotFoundException {
+		if (i > this.Vertex.size() || j > this.Vertex.size())
+			throw new VertexNotFoundException();
+		Edge edge = new Edge(this.Vertex.get(i), this.Vertex.get(j));
+		edge.setValue(value);
+		this.Edges.add(edge);
+	}
+	
+	public void addEdge(Edge e){
+		this.Edges.add(e);
+	}
 
-	@Override
 	public Vertex getVertex(int i) {
 		return this.Vertex.get(i);
 	}
-
+	
 	public void affiche() {
 		for (int i = 0; i < this.Vertex.size(); i++) {
 
@@ -127,8 +138,10 @@ public class GraphImpl implements GraphItf {
 	public List<Vertex> getVertexNeighbours(Vertex v) {
 		List<Vertex> l = new LinkedList<Vertex>();
 		for (Edge e : this.Edges) {
-			if (e.getStart().equals(v))
+			if (e.getStart().equals(v) && !l.contains(e.getEnd()))
 				l.add(e.getEnd());
+			if(e.getEnd().equals(v) && !l.contains(e.getStart()))
+				l.add(e.getStart());
 		}
 		return l;
 	}
