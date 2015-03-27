@@ -17,8 +17,8 @@ public class Generation implements RandomGraphGenerator {
 			graphe.addVertexNumber(i);
 		}
 		//Puis on ajoute les arètes selon la probabilité p
-		for(int i=0;i<n;i++){
-			for(int j=i;j<n;j++){
+		for(int i=1;i<=n;i++){
+			for(int j=i;j<=n;j++){
 				alea = Math.random();
 				if(alea < p){
 					graphe.addEdge(i, j);
@@ -40,7 +40,11 @@ public class Generation implements RandomGraphGenerator {
 	public static void main(String[] args) throws VertexNotFoundException, VertexAlreadyExistException {
 		Generation generate = new Generation();
 		GraphImpl graphe = generate.generateValueGraph(5,0.5);
-		graphe.affiche();
-		System.out.println(graphe.generateTxt());
+		//graphe.affiche();
+		System.out.println(graphe.graphToTxt());
+		String txt = graphe.graphToTxt();
+		GraphImpl graph = new GraphImpl();
+		graph.txtToGraph(txt);
+		graph.affiche();
 	}
 }
