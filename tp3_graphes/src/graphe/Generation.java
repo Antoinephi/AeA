@@ -6,7 +6,6 @@ import VertexExceptions.VertexNotFoundException;
 public class Generation implements RandomGraphGenerator {
 
 	
-	@Override
 	public GraphImpl generateErdosRenyiGraph(int n, double p) throws VertexAlreadyExistException, VertexNotFoundException{
 		if(p<0 || p>1)
 			throw new IllegalArgumentException();

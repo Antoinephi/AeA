@@ -36,12 +36,11 @@ public class GraphImpl implements GraphItf {
 		}
 	}
 
-	public void addVertex(int i){
+	public void addVertex(int i) {
 		Vertex v = new Vertex(i);
 		this.Vertex.add(v);
 	}
-	
-	@Override
+
 	public void addVertex() {
 		Vertex newVertex = new Vertex(this.Vertex.size() - 1);
 		this.Vertex.add(newVertex);
@@ -51,7 +50,6 @@ public class GraphImpl implements GraphItf {
 		this.Vertex.remove(vertex.getNumber());
 	}
 
-	@Override
 	public void addVertexNumber(int i) throws VertexAlreadyExistException {
 		for (int j = 0; j < this.Vertex.size(); j++) {
 			if (this.Vertex.get(j).getNumber() == i)
@@ -65,7 +63,6 @@ public class GraphImpl implements GraphItf {
 		this.Vertex.remove(i);
 	}
 
-	@Override
 	public void addEdge(Vertex v1, Vertex v2) throws VertexNotFoundException {
 		if (!this.Vertex.contains(v1) || !this.Vertex.contains(v2))
 			throw new VertexNotFoundException();
@@ -83,7 +80,6 @@ public class GraphImpl implements GraphItf {
 
 	}
 
-	@Override
 	public void addEdge(int i, int j) throws VertexNotFoundException {
 		Edge edge = new Edge(getVertexFromNumber(i), getVertexFromNumber(j));
 		this.Edges.add(edge);
@@ -96,7 +92,6 @@ public class GraphImpl implements GraphItf {
 		this.Edges.add(edge);
 	}
 
-	@Override
 	public Vertex getVertex(int i) {
 		return this.Vertex.get(i);
 	}
@@ -115,20 +110,23 @@ public class GraphImpl implements GraphItf {
 		for (int i = 0; i < this.Edges.size(); i++) {
 			System.out.println(this.Edges.get(i).getStart().getNumber()
 					+ "--->" + this.Edges.get(i).getEnd().getNumber()
-					+ " Value : " + this.Edges.get(i).getValue());
+					+ " Value : " + this.Edges.get(i).getValue()
+					+ " Color start : "
+					+ this.Edges.get(i).getStart().getColor() + " Color end : "
+					+ this.Edges.get(i).getEnd().getColor());
 		}
 	}
-	
-	public LinkedList<Vertex> getVertexNeighboors(Vertex v){
+
+	public LinkedList<Vertex> getVertexNeighboors(Vertex v) {
 		LinkedList<Vertex> vertexNeighboors = new LinkedList<Vertex>();
 		LinkedList<Edge> edgesStart = getStartEdgesFromVertex(v);
 		LinkedList<Edge> edgesEnd = getEndEdgesFromVertex(v);
 		for (Edge edge : edgesStart) {
-			if(!vertexNeighboors.contains(edge.getStart()))
+			if (!vertexNeighboors.contains(edge.getStart()))
 				vertexNeighboors.add(edge.getStart());
 		}
 		for (Edge edge : edgesEnd) {
-			if(!vertexNeighboors.contains(edge.getEnd()))
+			if (!vertexNeighboors.contains(edge.getEnd()))
 				vertexNeighboors.add(edge.getEnd());
 		}
 		return vertexNeighboors;
@@ -138,7 +136,7 @@ public class GraphImpl implements GraphItf {
 		LinkedList<Edge> edges = new LinkedList<Edge>();
 		for (Edge edge : this.Edges) {
 			if (edge.getStart() == v
-					&& edge.getEnd().getNumber() > v.getNumber()) {
+					&& edge.getEnd().getNumber() != v.getNumber()) {
 				edges.add(edge);
 			}
 
@@ -150,7 +148,7 @@ public class GraphImpl implements GraphItf {
 		LinkedList<Edge> edges = new LinkedList<Edge>();
 		for (Edge edge : this.Edges) {
 			if (edge.getEnd() == v
-					&& edge.getStart().getNumber() > v.getNumber()) {
+					&& edge.getStart().getNumber() != v.getNumber()) {
 				edges.add(edge);
 			}
 
@@ -191,7 +189,7 @@ public class GraphImpl implements GraphItf {
 		for (int i = 0; i < txtSplitLine.length; i++) {
 			String[] txtSplitWord = txtSplitLine[i].split(" ");
 			int start = Integer.parseInt(txtSplitWord[0]);
-			for (int j = 1; j < txtSplitWord.length - 1; j+=2) {
+			for (int j = 1; j < txtSplitWord.length - 1; j += 2) {
 				int end = Integer.parseInt(txtSplitWord[j]);
 				int value = Integer.parseInt(txtSplitWord[j + 1]);
 				this.addEdgeValue(start, end, value);
