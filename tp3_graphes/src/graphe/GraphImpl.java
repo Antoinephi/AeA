@@ -105,6 +105,8 @@ public class GraphImpl implements GraphItf {
 	}
 
 	public void affiche() {
+		System.out.println(this.Edges.size());
+
 		for (int i = 0; i < this.Edges.size(); i++) {
 			System.out.println(this.Edges.get(i).getStart().getNumber()
 					+ "--->" + this.Edges.get(i).getEnd().getNumber()
@@ -115,15 +117,6 @@ public class GraphImpl implements GraphItf {
 		}
 	}
 
-	public int getVertexDegree(Vertex v){
-		int degree = 0;
-		for (Edge edge : Edges) {
-			if(edge.getStart() == v || edge.getEnd() == v)
-				degree++;
-		}
-		return degree;
-	}
-	
 	public LinkedList<Vertex> getVertexNeighboors(Vertex v) {
 		LinkedList<Vertex> vertexNeighboors = new LinkedList<Vertex>();
 		LinkedList<Edge> edgesStart = getStartEdgesFromVertex(v);
