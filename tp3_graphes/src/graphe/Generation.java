@@ -17,7 +17,7 @@ public class Generation implements RandomGraphGenerator {
 		}
 		//Puis on ajoute les arètes selon la probabilité p
 		for(int i=1;i<=n;i++){
-			for(int j=i;j<=n;j++){
+			for(int j=i+1;j<=n;j++){
 				alea = Math.random();
 				if(alea < p){
 					graphe.addEdge(i, j);
