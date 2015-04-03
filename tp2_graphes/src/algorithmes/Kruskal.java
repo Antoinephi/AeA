@@ -44,8 +44,11 @@ public class Kruskal {
 			if (!isCyclic(e[j], F, mst)) {
 				// F := F U {e[i]}
 				F.add(e[j]);
+				System.out.println("here "+e[j].getStart().getNumber()+"---"+e[j].getEnd().getNumber());
+				System.out.println(F.size());
 			}
 		}
+		mst.setEdges(F);
 		return mst;
 	}
 
@@ -71,97 +74,57 @@ public class Kruskal {
 		return e;
 	}
 
-	// cf algo li�vre et la tortue
-	public boolean isCyclic2(Edge e, LinkedList<Edge> F) {
-		int cpt = 0;
-		Vertex start = e.getStart();
-		Vertex end = e.getEnd();
-		Edge chemin;
-		LinkedList<Edge> neighboors = new LinkedList<Edge>();
-		LinkedList<Edge> firstNeighboors = new LinkedList<Edge>();
-		for (int i = 0; i < F.size(); i++) {
-			if (F.get(i).getStart() == start || F.get(i).getEnd() == start) {
-				neighboors.add(F.get(i));
-				firstNeighboors.add(F.get(i));
-				System.out.println(F.get(i).getStart().getNumber() + "--->"
-						+ F.get(i).getEnd().getNumber());
-			}
-		}
-		System.out.println("fin first neighboors");
-		if (neighboors.isEmpty())
-			return false;
-		chemin = neighboors.get(cpt);
-		while (cpt < neighboors.size()
-				&& ((firstNeighboors.contains(chemin)) || ((chemin.getEnd() != start) && (chemin
-						.getStart() != start)))) {
-			chemin = neighboors.get(cpt);
-			cpt++;
-			System.out.println("chemin : " + chemin.getStart().getNumber()
-					+ "---" + chemin.getEnd().getNumber());
-			for (int i = 0; i < F.size(); i++) {
-				if (((F.get(i).getStart() == chemin.getEnd())
-						|| (F.get(i).getEnd() == chemin.getEnd())
-						|| (F.get(i).getStart() == chemin.getStart()) || (F
-						.get(i).getStart() == chemin.getEnd()))
-						&& !neighboors.contains(F.get(i))) {
-					neighboors.add(F.get(i));
-					System.out.println(F.get(i).getStart().getNumber() + "---"
-							+ F.get(i).getEnd().getNumber());
-				}
-			}
-		}
-		System.out.println("" + (cpt < neighboors.size()) + " cpt");
-		System.out.println(firstNeighboors.contains(chemin));
-		System.out
-				.println(((chemin.getEnd() != start) && (chemin.getStart() != start)));
-		System.out.println(((firstNeighboors.contains(chemin)) || ((chemin
-				.getEnd() != start) && (chemin.getStart() != start))));
-		if (chemin.getEnd() == end) {
-			return true;
-		}
-		return false;
-	}
-
-	public boolean isCyclic(Edge e, List<Edge> F, GraphImpl graphe) {
+	public boolean isCyclic(Edge e, List<Edge> F1, GraphImpl graphe) {
 		int[] isVisited = new int[graphe.getVertex().size()];
 		int[] comeFrom = new int[graphe.getVertex().size()];
+		List<Edge> F = new LinkedList<Edge>();
+		F.addAll(F1);
 		F.add(e);
 		for (int i = 0; i < isVisited.length; i++) {
 			isVisited[i] = 0;
 			comeFrom[i] = -1;
 		}
 		isVisited[e.getStart().getNumber() - 1] = 1;
-		System.out.println("here "+e.getStart().getNumber());
 		int lastVisited = e.getStart().getNumber();
 		LinkedList<Vertex> toBeVisited = new LinkedList<Vertex>();
 		for (int i = 0; i < F.size(); i++) {
 			if (F.get(i).getStart().getNumber() == lastVisited) {
 				toBeVisited.add(F.get(i).getEnd());
-				comeFrom[F.get(i).getEnd().getNumber()-1] = lastVisited-1;
+				comeFrom[F.get(i).getEnd().getNumber() - 1] = lastVisited - 1;
 			}
 			if (F.get(i).getEnd().getNumber() == lastVisited) {
 				toBeVisited.add(F.get(i).getStart());
-				comeFrom[F.get(i).getStart().getNumber()-1] = lastVisited-1;
-				System.out.println("start : "+F.get(i).getStart().getNumber());
+				comeFrom[F.get(i).getStart().getNumber() - 1] = lastVisited - 1;
+				System.out
+						.println("start : " + F.get(i).getStart().getNumber());
 			}
 		}
 
-		
 		while (!toBeVisited.isEmpty()) {
 			lastVisited = toBeVisited.getFirst().getNumber();
 			isVisited[lastVisited - 1] = 1;
-			System.out.println(lastVisited-1);
 			toBeVisited.removeFirst();
 			for (int i = 0; i < F.size(); i++) {
 				if (F.get(i).getStart().getNumber() == lastVisited) {
-					if (isVisited[F.get(i).getEnd().getNumber()-1] == 1)
+					if ((isVisited[F.get(i).getEnd().getNumber() - 1] == 1)
+							&& (comeFrom[lastVisited - 1] != F.get(i).getEnd()
+									.getNumber() - 1))
 						return true;
-					toBeVisited.add(F.get(i).getEnd());
+					if (isVisited[F.get(i).getEnd().getNumber() - 1] == 0) {
+						toBeVisited.add(F.get(i).getEnd());
+						comeFrom[F.get(i).getEnd().getNumber() - 1] = lastVisited - 1;
+					}
+
 				}
 				if (F.get(i).getEnd().getNumber() == lastVisited) {
-					if (isVisited[F.get(i).getStart().getNumber()-1] == 1)
+					if ((isVisited[F.get(i).getStart().getNumber() - 1] == 1)
+							&& (comeFrom[lastVisited - 1] != F.get(i)
+									.getStart().getNumber() - 1))
 						return true;
-					toBeVisited.add(F.get(i).getStart());
+					if (isVisited[F.get(i).getStart().getNumber() - 1] == 0) {
+						toBeVisited.add(F.get(i).getStart());
+						comeFrom[F.get(i).getStart().getNumber() - 1] = lastVisited - 1;
+					}
 				}
 			}
 		}
@@ -171,9 +134,13 @@ public class Kruskal {
 	public static void main(String[] args) throws VertexNotFoundException,
 			VertexAlreadyExistException {
 		Generation g = new Generation();
-		GraphImpl graphe = g.generateValueGraph(2000, 0.5);
-		//Kruskal algo = new Kruskal(graphe);
+		GraphImpl graphe = g.generateValueGraph(5, 0.5);
+		Kruskal algo = new Kruskal(graphe);
 		graphe.affiche();
-
+		Edge e = new Edge(graphe.getVertexFromNumber(1),
+				graphe.getVertexFromNumber(2));
+		List<Edge> F = graphe.getEdges();
+		GraphImpl mst = algo.algo();
+		mst.affiche();
 	}
 }

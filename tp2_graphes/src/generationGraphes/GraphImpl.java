@@ -37,15 +37,14 @@ public class GraphImpl implements GraphItf {
 		}
 	}
 
-	public void addVertex(int i){
+	public void addVertex(int i) {
 		Vertex v = new Vertex(i);
 		this.Vertex.add(v);
 	}
-	
-	public void addVertex(Vertex v){
+
+	public void addVertex(Vertex v) {
 		this.Vertex.add(v);
 	}
-	
 
 	public void addVertex() {
 		Vertex newVertex = new Vertex(this.Vertex.size());
@@ -88,16 +87,17 @@ public class GraphImpl implements GraphItf {
 	public void addEdge(int i, int j) throws VertexNotFoundException {
 		if (i > this.Vertex.size() || j > this.Vertex.size())
 			throw new VertexNotFoundException();
-		Edge edge = new Edge(this.Vertex.get(i-1), this.Vertex.get(j-1));
-
+		Edge edge = new Edge(this.Vertex.get(i - 1), this.Vertex.get(j - 1));
+		this.Edges.add(edge);
 	}
+
 	public void addEdgeValue(int i, int j, int value)
 			throws VertexNotFoundException {
 		Edge edge = new Edge(getVertexFromNumber(i), getVertexFromNumber(j));
 		edge.setValue(value);
 		this.Edges.add(edge);
 	}
-	
+
 	public void addEdge(int i, int j, int value) throws VertexNotFoundException {
 		if (i > this.Vertex.size() || j > this.Vertex.size())
 			throw new VertexNotFoundException();
@@ -105,15 +105,14 @@ public class GraphImpl implements GraphItf {
 		edge.setValue(value);
 		this.Edges.add(edge);
 	}
-	
-	public void addEdge(Edge e){
+
+	public void addEdge(Edge e) {
 		this.Edges.add(e);
 	}
 
 	public Vertex getVertex(int i) {
 		return this.Vertex.get(i);
 	}
-	
 
 	public Vertex getVertexFromNumber(int i) throws VertexNotFoundException {
 		for (Vertex vertex : this.Vertex) {
@@ -142,6 +141,10 @@ public class GraphImpl implements GraphItf {
 		return null;
 	}
 
+	public void setEdges(List Edges) {
+		this.Edges = Edges;
+	}
+
 	/**
 	 * Calculate the list of all Vertex's neighbours
 	 * 
@@ -154,7 +157,7 @@ public class GraphImpl implements GraphItf {
 		for (Edge e : this.Edges) {
 			if (e.getStart().equals(v) && !l.contains(e.getEnd()))
 				l.add(e.getEnd());
-			if(e.getEnd().equals(v) && !l.contains(e.getStart()))
+			if (e.getEnd().equals(v) && !l.contains(e.getStart()))
 				l.add(e.getStart());
 		}
 		return l;
@@ -227,7 +230,7 @@ public class GraphImpl implements GraphItf {
 		for (int i = 0; i < txtSplitLine.length; i++) {
 			String[] txtSplitWord = txtSplitLine[i].split(" ");
 			int start = Integer.parseInt(txtSplitWord[0]);
-			for (int j = 1; j < txtSplitWord.length - 1; j+=2) {
+			for (int j = 1; j < txtSplitWord.length - 1; j += 2) {
 				int end = Integer.parseInt(txtSplitWord[j]);
 				int value = Integer.parseInt(txtSplitWord[j + 1]);
 				this.addEdgeValue(start, end, value);
