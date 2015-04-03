@@ -33,7 +33,7 @@ public class Generation implements RandomGraphGenerator {
 	public GraphImpl generateValueGraph(int n, double p) throws VertexNotFoundException, VertexAlreadyExistException{
 		GraphImpl graphe = generateErdosRenyiGraph(n,p);
 		for(int i=0;i<graphe.getEdges().size();i++){
-			int aleaValue = (int) (new Random().nextDouble()*(Math.pow(n, 4)-1));
+			int aleaValue = (int) (new Random().nextDouble()*(Math.pow(n, 2)-1)*Math.pow(10, 2)); //Changed Random calcul
 			graphe.getEdges().get(i).setValue(aleaValue);
 		}
 		return graphe;
