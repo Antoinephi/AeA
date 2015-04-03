@@ -1,11 +1,15 @@
 package algorithmes;
 
+import generationGraphes.Edge;
+import generationGraphes.Generation;
+import generationGraphes.GraphImpl;
+import generationGraphes.Vertex;
+
 import java.util.LinkedList;
 import java.util.List;
 
 import VertexExceptions.VertexAlreadyExistException;
 import VertexExceptions.VertexNotFoundException;
-import generationGraphes.*;
 
 public class Kruskal {
 	private GraphImpl graph;
@@ -144,19 +148,20 @@ public class Kruskal {
 
 		
 		while (!toBeVisited.isEmpty()) {
-			lastVisited = graphe.getVertexFromNumber(toBeVisited.getFirst());
+			lastVisited = toBeVisited.getFirst().getNumber();
 			isVisited[lastVisited - 1] = 1;
+			System.out.println(lastVisited-1);
 			toBeVisited.removeFirst();
 			for (int i = 0; i < F.size(); i++) {
 				if (F.get(i).getStart().getNumber() == lastVisited) {
 					if (isVisited[F.get(i).getEnd().getNumber()-1] == 1)
 						return true;
-					toBeVisited.add(F.get(i).getEnd().getNumber());
+					toBeVisited.add(F.get(i).getEnd());
 				}
 				if (F.get(i).getEnd().getNumber() == lastVisited) {
 					if (isVisited[F.get(i).getStart().getNumber()-1] == 1)
 						return true;
-					toBeVisited.add(F.get(i).getStart().getNumber());
+					toBeVisited.add(F.get(i).getStart());
 				}
 			}
 		}
@@ -166,12 +171,9 @@ public class Kruskal {
 	public static void main(String[] args) throws VertexNotFoundException,
 			VertexAlreadyExistException {
 		Generation g = new Generation();
-		GraphImpl graphe = g.generateValueGraph(5, 0.5);
-		Kruskal algo = new Kruskal(graphe);
+		GraphImpl graphe = g.generateValueGraph(2000, 0.5);
+		//Kruskal algo = new Kruskal(graphe);
 		graphe.affiche();
-		Edge e = new Edge(graphe.getVertex(1), graphe.getVertex(2));
-		System.out.println(graphe.getVertex(1).getNumber());
-		System.out.println(graphe.getVertex(2).getNumber());
-		System.out.println(algo.isCyclic(e, graphe.getEdges(), graphe));
+
 	}
 }

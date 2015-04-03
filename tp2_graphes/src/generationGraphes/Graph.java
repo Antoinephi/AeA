@@ -3,7 +3,7 @@ package generationGraphes;
 import VertexExceptions.VertexAlreadyExistException;
 import VertexExceptions.VertexNotFoundException;
 
-public interface GraphItf {
+public interface Graph {
 	public void addVertex();
 	public void addVertexNumber(int i) throws VertexAlreadyExistException;
 	public void addEdge(Vertex v1, Vertex v2) throws VertexNotFoundException;
