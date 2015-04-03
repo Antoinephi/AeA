@@ -40,7 +40,7 @@ public class Generation implements RandomGraphGenerator {
 	
 	public static void main(String[] args) throws VertexNotFoundException, VertexAlreadyExistException {
 		Generation generate = new Generation();
-		GraphImpl graphe = generate.generateValueGraph(300,0.5);
+		GraphImpl graphe = generate.generateValueGraph(5,0.5);
 		graphe.affiche();
 		//System.out.println(graphe.graphToTxt());
 		/*String txt = graphe.graphToTxt();
