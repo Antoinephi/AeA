@@ -88,7 +88,7 @@ public class GraphImpl implements GraphItf {
 	public void addEdge(int i, int j) throws VertexNotFoundException {
 		if (i > this.Vertex.size() || j > this.Vertex.size())
 			throw new VertexNotFoundException();
-		Edge edge = new Edge(this.Vertex.get(i), this.Vertex.get(j));
+		Edge edge = new Edge(this.Vertex.get(i-1), this.Vertex.get(j-1));
 
 	}
 	public void addEdgeValue(int i, int j, int value)

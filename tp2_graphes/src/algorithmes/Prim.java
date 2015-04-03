@@ -4,7 +4,6 @@ import generationGraphes.Edge;
 import generationGraphes.GraphImpl;
 import generationGraphes.Vertex;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Prim {
