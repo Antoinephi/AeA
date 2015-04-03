@@ -131,33 +131,37 @@ public class Kruskal {
 			comeFrom[i] = -1;
 		}
 		isVisited[e.getStart().getNumber() - 1] = 1;
+		System.out.println("here "+e.getStart().getNumber());
 		int lastVisited = e.getStart().getNumber();
-		LinkedList<Integer> toBeVisited = new LinkedList<Integer>();
+		LinkedList<Vertex> toBeVisited = new LinkedList<Vertex>();
 		for (int i = 0; i < F.size(); i++) {
 			if (F.get(i).getStart().getNumber() == lastVisited) {
-				isVisited[F.get(i).getEnd().getNumber() - 1]++;
-				toBeVisited.add(F.get(i).getEnd().getNumber());
-				comeFrom[F.get(i).getEnd().getNumber()-1] = lastVisited;
+				toBeVisited.add(F.get(i).getEnd());
+				comeFrom[F.get(i).getEnd().getNumber()-1] = lastVisited-1;
 			}
 			if (F.get(i).getEnd().getNumber() == lastVisited) {
-				isVisited[F.get(i).getStart().getNumber() - 1]++;
-				toBeVisited.add(F.get(i).getStart().getNumber());
+				toBeVisited.add(F.get(i).getStart());
+				comeFrom[F.get(i).getStart().getNumber()-1] = lastVisited-1;
+				System.out.println("start : "+F.get(i).getStart().getNumber());
 			}
 		}
+
+		
 		while (!toBeVisited.isEmpty()) {
-			lastVisited = toBeVisited.getFirst();
+			lastVisited = toBeVisited.getFirst().getNumber();
 			isVisited[lastVisited - 1] = 1;
+			System.out.println(lastVisited-1);
 			toBeVisited.removeFirst();
 			for (int i = 0; i < F.size(); i++) {
 				if (F.get(i).getStart().getNumber() == lastVisited) {
 					if (isVisited[F.get(i).getEnd().getNumber()-1] == 1)
 						return true;
-					toBeVisited.add(F.get(i).getEnd().getNumber());
+					toBeVisited.add(F.get(i).getEnd());
 				}
 				if (F.get(i).getEnd().getNumber() == lastVisited) {
 					if (isVisited[F.get(i).getStart().getNumber()-1] == 1)
 						return true;
-					toBeVisited.add(F.get(i).getStart().getNumber());
+					toBeVisited.add(F.get(i).getStart());
 				}
 			}
 		}
@@ -167,12 +171,9 @@ public class Kruskal {
 	public static void main(String[] args) throws VertexNotFoundException,
 			VertexAlreadyExistException {
 		Generation g = new Generation();
-		GraphImpl graphe = g.generateValueGraph(5, 0.5);
-		Kruskal algo = new Kruskal(graphe);
+		GraphImpl graphe = g.generateValueGraph(2000, 0.5);
+		//Kruskal algo = new Kruskal(graphe);
 		graphe.affiche();
-		Edge e = new Edge(graphe.getVertex(1), graphe.getVertex(2));
-		System.out.println(graphe.getVertex(1).getNumber());
-		System.out.println(graphe.getVertex(2).getNumber());
-		System.out.println(algo.isCyclic(e, graphe.getEdges(), graphe));
+
 	}
 }
