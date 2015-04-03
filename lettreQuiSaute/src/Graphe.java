@@ -123,6 +123,7 @@ public class Graphe {
 	
 	public void visit(){
 		int cpt = 0;
+
 		for(int i = 0; i < this.dejaVu.length; i++){
 			if(!this.dejaVu[i]){
 				cpt++;
