@@ -4,7 +4,10 @@ import generationGraphes.Edge;
 import generationGraphes.GraphImpl;
 import generationGraphes.Vertex;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class Prim {
 	private GraphImpl graphe;
@@ -69,13 +72,47 @@ public class Prim {
 			
 		}
 	}
+	
+	public List<Vertex> algo_bis(){
+		List<Vertex> vertex = new LinkedList<Vertex>();
+		List<Boolean> sommetsMarques = new LinkedList<Boolean>();
+		for(Vertex v : this.graphe.getVertex())
+			sommetsMarques.add(false);
+		sommetsMarques.set(0, true);
+		System.out.println("pre while");
+		while(sommetsMarques.contains(false)){
+			List<Vertex> liste = null;
+			int maxEdgeValue = Integer.MAX_VALUE;
+			Edge e;
+			int numSommet = 0;
+			for(int i = 0; i < sommetsMarques.size(); i++){
+				if(sommetsMarques.get(i) == false){
+					System.out.println(i + " v");
+					liste = this.graphe.getVertexNeighbours(this.graphe.getVertex(i));
+					for(int j = 0; j < liste.size(); j++){
+						System.out.println("num edge value : " + this.graphe.getEdge(i, j));
+						if(liste.get(j).getNumber() == Math.max(i-1,0) && this.graphe.getEdge(i, j).getValue() < maxEdgeValue){
+							System.out.println("if");
+							maxEdgeValue = this.graphe.getEdge(i, j).getValue() ;
+							e = this.graphe.getEdge(i, j);
+							numSommet = j;
+						}
+					}
+				}
+				
+			}
+			vertex.add(new Vertex(numSommet));
+			sommetsMarques.set(numSommet, true);
+		}
+		return vertex;
+	}
 		
 	public static void main(String[] args) {
 		
 		GraphImpl g = new GraphImpl();
 		for(int i = 0; i < 8; i++){
 			g.addVertex();
-			System.out.println(g.getVertex());
+			//System.out.println(g.getVertex());
 		}
 		try {
 			g.addEdge(0,1, 14);
@@ -91,10 +128,10 @@ public class Prim {
 		} catch(Exception e){
 			e.printStackTrace();
 		}
-
+		g.affiche();
 		Prim p = new Prim(g);
-		p.algo();
-		p.afficher_graphe();
+		System.out.println(p.algo_bis());
+		//p.afficher_graphe();
 	}
 	
 }

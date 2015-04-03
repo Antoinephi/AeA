@@ -137,9 +137,6 @@ public class Kruskal {
 		GraphImpl graphe = g.generateValueGraph(5, 0.5);
 		Kruskal algo = new Kruskal(graphe);
 		graphe.affiche();
-		Edge e = new Edge(graphe.getVertexFromNumber(1),
-				graphe.getVertexFromNumber(2));
-		List<Edge> F = graphe.getEdges();
 		GraphImpl mst = algo.algo();
 		mst.affiche();
 	}
