@@ -1,6 +1,7 @@
 package algorithmes;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import VertexExceptions.VertexAlreadyExistException;
 import VertexExceptions.VertexNotFoundException;
@@ -17,23 +18,23 @@ public class Kruskal {
 		// Sortie : nouveau graphe
 		GraphImpl mst = new GraphImpl();
 
-		// Qui contient les mêmes sommets
+		// Qui contient les mï¿½mes sommets
 		for (int i = 0; i < this.graph.getVertex().size(); i++) {
 			mst.addVertexNumber(this.graph.getVertex().get(i).getNumber());
 		}
 
-		// Initialiser F à vide
+		// Initialiser F ï¿½ vide
 		LinkedList<Edge> F = new LinkedList<Edge>();
 
-		// e est l'ensemble des arêtes du graphe de départ
+		// e est l'ensemble des arï¿½tes du graphe de dï¿½part
 		Edge[] e = new Edge[this.graph.getEdges().size()];
 		for (int i = 0; i < e.length; i++) {
 			e[i] = this.graph.getEdges().get(i);
 		}
-		// Trier les arêtes de e par poids croissant
+		// Trier les arï¿½tes de e par poids croissant
 		e = sortEdge(e);
 
-		// Pour 1=1 à |E| Faire
+		// Pour 1=1 ï¿½ |E| Faire
 		for (int j = 0; j < e.length; j++) {
 			// Si F U {e[i]} est acyclique Alors
 			if (!isCyclic(e[j], F, mst)) {
@@ -66,7 +67,7 @@ public class Kruskal {
 		return e;
 	}
 
-	// cf algo lièvre et la tortue
+	// cf algo liï¿½vre et la tortue
 	public boolean isCyclic2(Edge e, LinkedList<Edge> F) {
 		int cpt = 0;
 		Vertex start = e.getStart();
@@ -117,7 +118,7 @@ public class Kruskal {
 		return false;
 	}
 
-	public boolean isCyclic(Edge e, LinkedList<Edge> F, GraphImpl graphe) {
+	public boolean isCyclic(Edge e, List<Edge> F, GraphImpl graphe) {
 		int[] isVisited = new int[graphe.getVertex().size()];
 		int[] comeFrom = new int[graphe.getVertex().size()];
 		F.add(e);
@@ -126,21 +127,24 @@ public class Kruskal {
 			comeFrom[i] = -1;
 		}
 		isVisited[e.getStart().getNumber() - 1] = 1;
+		System.out.println("here "+e.getStart().getNumber());
 		int lastVisited = e.getStart().getNumber();
-		LinkedList<Integer> toBeVisited = new LinkedList<Integer>();
+		LinkedList<Vertex> toBeVisited = new LinkedList<Vertex>();
 		for (int i = 0; i < F.size(); i++) {
 			if (F.get(i).getStart().getNumber() == lastVisited) {
-				isVisited[F.get(i).getEnd().getNumber() - 1]++;
-				toBeVisited.add(F.get(i).getEnd().getNumber());
-				comeFrom[F.get(i).getEnd().getNumber()-1] = lastVisited;
+				toBeVisited.add(F.get(i).getEnd());
+				comeFrom[F.get(i).getEnd().getNumber()-1] = lastVisited-1;
 			}
 			if (F.get(i).getEnd().getNumber() == lastVisited) {
-				isVisited[F.get(i).getStart().getNumber() - 1]++;
-				toBeVisited.add(F.get(i).getStart().getNumber());
+				toBeVisited.add(F.get(i).getStart());
+				comeFrom[F.get(i).getStart().getNumber()-1] = lastVisited-1;
+				System.out.println("start : "+F.get(i).getStart().getNumber());
 			}
 		}
+
+		
 		while (!toBeVisited.isEmpty()) {
-			lastVisited = toBeVisited.getFirst();
+			lastVisited = graphe.getVertexFromNumber(toBeVisited.getFirst());
 			isVisited[lastVisited - 1] = 1;
 			toBeVisited.removeFirst();
 			for (int i = 0; i < F.size(); i++) {
