@@ -11,10 +11,11 @@ import java.util.List;
 import VertexExceptions.VertexAlreadyExistException;
 import VertexExceptions.VertexNotFoundException;
 
-public class Kruskal {
+public class Kruskal2 {
 	private GraphImpl graph;
+	private static int partMin = 0;
 
-	public Kruskal(GraphImpl graph) {
+	public Kruskal2(GraphImpl graph) {
 		this.graph = graph;
 	}
 
@@ -41,15 +42,38 @@ public class Kruskal {
 		// Pour 1=1 � |E| Faire
 		for (int j = 0; j < e.length; j++) {
 			// Si F U {e[i]} est acyclique Alors
-			if (!isCyclic(e[j], F, mst)) {
+			if (!isCyclic(e[j], F)) {
 				// F := F U {e[i]}
 				F.add(e[j]);
+				updatePart(mst, e[j]);
 				System.out.println("here "+e[j].getStart().getNumber()+"---"+e[j].getEnd().getNumber());
 				System.out.println(F.size());
 			}
 		}
 		mst.setEdges(F);
 		return mst;
+	}
+
+	private void updatePart(GraphImpl graphe, Edge e) {
+		if(e.getStart().getPart() == -1 && e.getEnd().getPart() == -1){
+			e.getStart().setPart(partMin);
+			e.getEnd().setPart(partMin);
+			partMin++;
+			return;
+		}
+		if(e.getStart().getPart() == -1 && e.getEnd().getPart() != -1){
+			e.getStart().setPart(e.getEnd().getPart());
+			return;
+		}
+		if(e.getEnd().getPart() == -1 && e.getStart().getPart() != -1){
+			e.getEnd().setPart(e.getStart().getPart());
+			return;
+		}
+		for (Vertex v : graphe.getVertex()) {
+			if(v.getPart() == e.getEnd().getPart()){
+				v.setPart(e.getStart().getPart());
+			}
+		}
 	}
 
 	public Edge[] sortEdge(Edge[] e) {
@@ -73,61 +97,12 @@ public class Kruskal {
 		System.out.println("Fin du tri");
 		return e;
 	}
-
-	public boolean isCyclic(Edge e, List<Edge> F1, GraphImpl graphe) {
-		int[] isVisited = new int[graphe.getVertex().size()];
-		int[] comeFrom = new int[graphe.getVertex().size()];
-		List<Edge> F = new LinkedList<Edge>();
-		F.addAll(F1);
-		F.add(e);
-		for (int i = 0; i < isVisited.length; i++) {
-			isVisited[i] = 0;
-			comeFrom[i] = -1;
-		}
-		isVisited[e.getStart().getNumber() - 1] = 1;
-		int lastVisited = e.getStart().getNumber();
-		LinkedList<Vertex> toBeVisited = new LinkedList<Vertex>();
-		for (int i = 0; i < F.size(); i++) {
-			if (F.get(i).getStart().getNumber() == lastVisited) {
-				toBeVisited.add(F.get(i).getEnd());
-				comeFrom[F.get(i).getEnd().getNumber() - 1] = lastVisited - 1;
-			}
-			if (F.get(i).getEnd().getNumber() == lastVisited) {
-				toBeVisited.add(F.get(i).getStart());
-				comeFrom[F.get(i).getStart().getNumber() - 1] = lastVisited - 1;
-				System.out
-						.println("start : " + F.get(i).getStart().getNumber());
-			}
-		}
-
-		while (!toBeVisited.isEmpty()) {
-			lastVisited = toBeVisited.getFirst().getNumber();
-			isVisited[lastVisited - 1] = 1;
-			toBeVisited.removeFirst();
-			for (int i = 0; i < F.size(); i++) {
-				if (F.get(i).getStart().getNumber() == lastVisited) {
-					if ((isVisited[F.get(i).getEnd().getNumber() - 1] == 1)
-							&& (comeFrom[lastVisited - 1] != F.get(i).getEnd()
-									.getNumber() - 1))
-						return true;
-					if (isVisited[F.get(i).getEnd().getNumber() - 1] == 0) {
-						toBeVisited.add(F.get(i).getEnd());
-						comeFrom[F.get(i).getEnd().getNumber() - 1] = lastVisited - 1;
-					}
-
-				}
-				if (F.get(i).getEnd().getNumber() == lastVisited) {
-					if ((isVisited[F.get(i).getStart().getNumber() - 1] == 1)
-							&& (comeFrom[lastVisited - 1] != F.get(i)
-									.getStart().getNumber() - 1))
-						return true;
-					if (isVisited[F.get(i).getStart().getNumber() - 1] == 0) {
-						toBeVisited.add(F.get(i).getStart());
-						comeFrom[F.get(i).getStart().getNumber() - 1] = lastVisited - 1;
-					}
-				}
-			}
-		}
+	
+	public boolean isCyclic(Edge e, LinkedList<Edge> F){
+		if(e.getStart().getPart() == -1 || e.getEnd().getPart() == -1)
+			return false;
+		if(e.getStart().getPart() == e.getEnd().getPart())
+			return true;
 		return false;
 	}
 
