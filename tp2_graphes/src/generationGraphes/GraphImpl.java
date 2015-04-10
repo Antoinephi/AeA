@@ -70,10 +70,15 @@ public class GraphImpl implements GraphItf {
 	}
 
 	public void addEdge(Vertex v1, Vertex v2) throws VertexNotFoundException {
-		if (!this.Vertex.contains(v1) || !this.Vertex.contains(v2))
-			throw new VertexNotFoundException();
+		if(!this.Vertex.contains(v1))
+			this.Vertex.add(v1);
+		if(!this.Vertex.contains(v2))
+			this.Vertex.add(v2);
+		//if (!this.Vertex.contains(v1) || !this.Vertex.contains(v2))
+			//throw new VertexNotFoundException();
 		Edge edge = new Edge(v1, v2);
-		this.Edges.add(edge);
+		if(!this.Edges.contains(edge) && !v1.equals(v2))
+			this.Edges.add(edge);
 	}
 
 	public void addValue(Edge edge, int value) {
