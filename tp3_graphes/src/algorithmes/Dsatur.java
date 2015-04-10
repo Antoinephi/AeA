@@ -19,6 +19,15 @@ public class Dsatur {
 		this.dsatur = initDsatur();
 	}
 	
+	public int getMaxColor(){
+		int max = 0;
+		for (Vertex v : graphe.getVertex()) {
+			if (v.getColor() > max)
+				max = v.getColor();
+		}
+		return max;
+	}
+	
 	public LinkedList<Integer> getMax(int[] tab){
 		LinkedList<Integer> indMax = new LinkedList<Integer>();
 		int max = tab[0];
@@ -62,10 +71,6 @@ public class Dsatur {
 	public int getMinColor(int number){
 		LinkedList<Integer> alreadyUsedColor = new LinkedList<Integer>();
 		LinkedList<Vertex> neighboors = this.graphe.getVertexNeighboors(this.graphe.getVertex().get(number));
-		System.out.println("neighboors : ");
-		for (Vertex vertex : neighboors) {
-			System.out.println(vertex.getNumber());
-		}
 		for (Vertex vertex : neighboors) {
 			if((vertex.getColor() !=-1) && (!alreadyUsedColor.contains(vertex.getColor()))){
 				alreadyUsedColor.add(vertex.getColor());
@@ -86,24 +91,14 @@ public class Dsatur {
 	
 
 	public void algoDSATUR(){
-		System.out.println("Etape 1");
-		this.dsaturToString();
 		int max = this.getMax(this.degrees).get(0);
 		this.graphe.getVertex().get(max).setColor(0);
-		System.out.println(max);
 		LinkedList<Vertex> neighboors = this.graphe.getVertexNeighboors(this.graphe.getVertex().get(max));
 		this.dsatur[max] = -1;
 		for (Vertex vertex : neighboors) {
 			this.dsatur[vertex.getNumber()-1] = 1;
 		}
-		System.out.println("dsatur : ");
-		for(int i=0;i<dsatur.length;i++){
-			System.out.println(dsatur[i]);
-		}
-			
-		System.out.println("Etape 2");
 		for(int i=1;i<this.degrees.length;i++){
-			this.dsaturToString();
 			LinkedList<Integer> maxDsatur = this.getMax(dsatur);
 			int num;
 			if(maxDsatur.size() == 1){
@@ -111,12 +106,9 @@ public class Dsatur {
 			} else {
 				num = getMax(maxDsatur);
 			}
-			System.out.println("num : "+num);
 				this.graphe.getVertex().get(num).setColor(this.getMinColor(num));
-				System.out.println(this.graphe.getVertex().get(num).getNumber() + " a la couleur : "+this.getMinColor(num));
 				this.dsatur[num] = -1;
 				//this.dsaturToString();
-				System.out.println(num);
 				neighboors = this.graphe.getVertexNeighboors(this.graphe.getVertex().get(num));
 				for (Vertex vertex : neighboors) {
 					if((vertex.getColor() == -1) && (this.dsatur[vertex.getNumber()-1] < this.graphe.getVertexDegree(vertex))){
@@ -140,10 +132,17 @@ public class Dsatur {
 	
 	public static void main(String[] args) throws VertexNotFoundException, VertexAlreadyExistException {
 		Generation g = new Generation();
-		GraphImpl graphe = g.generateValueGraph(5, 0.5);
-		graphe.affiche();
+		GraphImpl graphe = g.generateValueGraph(1000, 0.5);
+		//graphe.affiche();
+		System.out.println("graphe généré");
+		long tempsDebut = System.currentTimeMillis();
 		Dsatur algo = new Dsatur(graphe);
+		long tempsFin = System.currentTimeMillis();
+		float seconds = (tempsFin - tempsDebut) / 1000F;
+		System.out.println("Dsatur effectué en :"
+				+ Float.toString(seconds) + " secondes.");
 		algo.algoDSATUR();
-		algo.getGraphe().affiche();
+		//algo.getGraphe().affiche();
+		System.out.println(algo.getMaxColor());
 	}
 }

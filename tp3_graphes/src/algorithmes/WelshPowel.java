@@ -17,6 +17,15 @@ public class WelshPowel {
 		this.degreesDec = initDegrees();
 	}
 	
+	public int getMaxColor(){
+		int max = 0;
+		for (Vertex v : graphe.getVertex()) {
+			if (v.getColor() > max)
+				max = v.getColor();
+		}
+		return max;
+	}
+	
 	public int[] initDegrees(){
 		int[] degrees = new int[this.graphe.getVertex().size()];
 		int[] degreesDec = new int[this.graphe.getVertex().size()];
@@ -57,6 +66,7 @@ public class WelshPowel {
 				for (Vertex vertex : this.graphe.getVertex()) {
 					if((!neighboors.contains(vertex)) && (vertex.getColor() ==-1))
 						vertex.setColor(colorMax);
+					neighboors.addAll(this.graphe.getVertexNeighboors(vertex));
 				}
 				colorMax++;
 			}
@@ -65,12 +75,13 @@ public class WelshPowel {
 	
 	public static void main(String[] args) throws VertexNotFoundException, VertexAlreadyExistException {
 		Generation g = new Generation();
-		GraphImpl graphe = g.generateValueGraph(5, 0.5);
+		GraphImpl graphe = g.generateValueGraph(50, 0.5);
 		WelshPowel algo = new WelshPowel(graphe);
 		for(int i=0;i<algo.getDegreesDec().length;i++){
 			System.out.println(graphe.getVertex(algo.getDegreesDec()[i]).getNumber() + " " + graphe.getVertexDegree(graphe.getVertex(algo.getDegreesDec()[i])));
 		}
 		algo.algoWelshPowel();
 		algo.getGraphe().affiche();
+		System.out.println(algo.getMaxColor());
 	}
 }
