@@ -9,6 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import VertexExceptions.VertexNotFoundException;
+
 public class Prim {
 	private GraphImpl graphe;
 	private List<Vertex> Q;
@@ -73,7 +75,7 @@ public class Prim {
 		}
 	}
 	
-	public List<Vertex> algo_bis(){
+	/*public List<Vertex> algo_bis(){
 		List<Vertex> vertex = new LinkedList<Vertex>();
 		List<Boolean> sommetsMarques = new LinkedList<Boolean>();
 		for(Vertex v : this.graphe.getVertex())
@@ -88,7 +90,7 @@ public class Prim {
 			for(int i = 0; i < sommetsMarques.size(); i++){
 				if(sommetsMarques.get(i) == false){
 					System.out.println(i + " v");
-					liste = this.graphe.getVertexNeighbours(this.graphe.getVertex(i));
+					liste = this.graphe.getVertexNeighbours(this.graphe.getVertex(i)); //A REGARDER : valeur du i
 					for(int j = 0; j < liste.size(); j++){
 						System.out.println("num edge value : " + this.graphe.getEdge(i, j));
 						if(liste.get(j).getNumber() == Math.max(i-1,0) && this.graphe.getEdge(i, j).getValue() < maxEdgeValue){
@@ -105,6 +107,44 @@ public class Prim {
 			sommetsMarques.set(numSommet, true);
 		}
 		return vertex;
+	}*/
+	
+	public GraphImpl algo_bis(){
+		List<Vertex> liste_vertex = new LinkedList<Vertex>();
+		List<Vertex> sommetsMarques = this.graphe.getVertex();
+		List<Integer> edgesValues = new LinkedList<Integer>();
+		Vertex y = null;
+		Vertex v1;
+		int poidsMin = Integer.MAX_VALUE;
+
+		for (int i = 0; i < this.graphe.getEdges().size(); i++) {
+			edgesValues.add(this.graphe.getEdges().get(i).getValue());
+		}
+		
+		v1 = sommetsMarques.remove(0);
+		System.out.println("intiial v1 " + v1);
+		while(!sommetsMarques.isEmpty()){
+			System.out.println("while");
+			System.out.println("v1 : " +v1);
+			poidsMin = Integer.MAX_VALUE;
+			liste_vertex = this.graphe.getVertexNeighbours(v1);
+			for(Vertex v2 : liste_vertex){
+				System.out.println("v2 : " + v2);
+				if(sommetsMarques.contains(v2) && this.graphe.getEdge(v2, v1).getValue() < poidsMin){
+					poidsMin = this.graphe.getEdge(v2, v1).getValue();
+					y = v2;
+					System.out.println("sommet adjacent marqué : " + v2 + " poids : " + poidsMin);
+				}
+				
+			}
+			if(v1 != null && y != null){
+				System.out.println("ajout edge : " + v1 + " " + y);
+				this.MST.addEdge(v1, y, poidsMin);
+				v1 = sommetsMarques.remove(y.getNumber()-1);
+			}
+		}
+		
+		return this.MST;
 	}
 		
 	public static void main(String[] args) {
@@ -128,10 +168,10 @@ public class Prim {
 		} catch(Exception e){
 			e.printStackTrace();
 		}
-		g.affiche();
+		//g.affiche();
 		Prim p = new Prim(g);
-		System.out.println(p.algo_bis());
-		//p.afficher_graphe();
+		p.algo_bis();
+		p.afficher_graphe();
 	}
 	
 }
