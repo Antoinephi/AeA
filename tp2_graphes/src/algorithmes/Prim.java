@@ -4,6 +4,7 @@ import generationGraphes.Edge;
 import generationGraphes.GraphImpl;
 import generationGraphes.Vertex;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -111,36 +112,43 @@ public class Prim {
 	
 	public GraphImpl algo_bis(){
 		List<Vertex> liste_vertex = new LinkedList<Vertex>();
-		List<Vertex> sommetsMarques = this.graphe.getVertex();
+		boolean[] sommetsMarques = new boolean[this.graphe.getVertex().size()];
 		List<Integer> edgesValues = new LinkedList<Integer>();
-		Vertex y = null;
-		Vertex v1;
+		Vertex y = null,  x = null, v1 = null;
+		int nbSommetsMarques = 1;
 		int poidsMin = Integer.MAX_VALUE;
 
 		for (int i = 0; i < this.graphe.getEdges().size(); i++) {
 			edgesValues.add(this.graphe.getEdges().get(i).getValue());
 		}
+		Collections.sort(edgesValues);
 		
-		v1 = sommetsMarques.remove(0);
-		System.out.println("intiial v1 " + v1);
-		while(!sommetsMarques.isEmpty()){
+		sommetsMarques[0] = true;
+		while(nbSommetsMarques < sommetsMarques.length){
 			System.out.println("while");
-			System.out.println("v1 : " +v1);
 			poidsMin = Integer.MAX_VALUE;
-			liste_vertex = this.graphe.getVertexNeighbours(v1);
-			for(Vertex v2 : liste_vertex){
-				System.out.println("v2 : " + v2);
-				if(sommetsMarques.contains(v2) && this.graphe.getEdge(v2, v1).getValue() < poidsMin){
-					poidsMin = this.graphe.getEdge(v2, v1).getValue();
-					y = v2;
-					System.out.println("sommet adjacent marqué : " + v2 + " poids : " + poidsMin);
+			for(int i = 0; i < sommetsMarques.length; i++){
+				if(sommetsMarques[i]){
+					v1 = new Vertex(i);
+					liste_vertex = this.graphe.getVertexNeighbours(v1);
+					for(Vertex v2 : liste_vertex){
+						System.out.println("v2 : " + v2);
+						if(!sommetsMarques[v2.getNumber()] && this.graphe.getEdge(v2, v1).getValue() < poidsMin){
+							poidsMin = this.graphe.getEdge(v2, v1).getValue();
+							y = v2;
+							x = v1;
+							System.out.println("sommet adjacent marqué : " + v2 + " poids : " + poidsMin);
+						}
+						
+					}
 				}
-				
 			}
+			
 			if(v1 != null && y != null){
-				System.out.println("ajout edge : " + v1 + " " + y);
-				this.MST.addEdge(v1, y, poidsMin);
-				v1 = sommetsMarques.remove(y.getNumber()-1);
+				System.out.println("ajout edge : " + x + " " + y);
+				this.MST.addEdge(x, y, poidsMin);
+				sommetsMarques[y.getNumber()] = true;
+				nbSommetsMarques++;
 			}
 		}
 		
