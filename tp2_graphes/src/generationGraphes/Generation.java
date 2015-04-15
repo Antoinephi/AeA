@@ -9,6 +9,8 @@ public class Generation implements RandomGraphGenerator {
 
 	
 	public GraphImpl generateErdosRenyiGraph(int n, double p) throws VertexAlreadyExistException, VertexNotFoundException{
+		long startTime = System.currentTimeMillis();
+		
 		if(p<0 || p>1)
 			throw new IllegalArgumentException();
 		GraphImpl graphe = new GraphImpl();
@@ -20,12 +22,14 @@ public class Generation implements RandomGraphGenerator {
 		//Puis on ajoute les arètes selon la probabilité p
 		for(int i=1;i<=n;i++){
 			for(int j=i+1;j<=n;j++){
+				//System.out.println(i*j + "/" + n*n);
 				alea = Math.random();
 				if(alea < p){
 					graphe.addEdge(i, j);
 				}
 			}
 		}
+		System.out.println("total time : " + ((float)(System.currentTimeMillis() - startTime)) / 1000 + "sec");
 		return graphe;
 	}
 	
@@ -40,7 +44,7 @@ public class Generation implements RandomGraphGenerator {
 	
 	public static void main(String[] args) throws VertexNotFoundException, VertexAlreadyExistException {
 		Generation generate = new Generation();
-		GraphImpl graphe = generate.generateValueGraph(2000,0.5);
+		GraphImpl graphe = generate.generateValueGraph(1000,1);
 		graphe.affiche();
 		System.out.println(graphe.graphToTxt());
 		String txt = graphe.graphToTxt();

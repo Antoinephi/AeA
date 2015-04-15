@@ -1,7 +1,9 @@
 package generationGraphes;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import VertexExceptions.VertexAlreadyExistException;
 import VertexExceptions.VertexNotFoundException;
@@ -153,7 +155,7 @@ public class GraphImpl implements GraphItf {
 
 	/**
 	 * Calculate the list of all Vertex's neighbours
-	 * 
+	 * Compléxité  pire des cas : O(n)
 	 * @param v
 	 *            : Vertex's number to look for neighbours
 	 * @return l : list of all of v's neighbours
@@ -161,9 +163,9 @@ public class GraphImpl implements GraphItf {
 	public List<Vertex> getVertexNeighbours(Vertex v) {
 		List<Vertex> l = new LinkedList<Vertex>();
 		for (Edge e : this.Edges) {
-			if (e.getStart().equals(v) && !l.contains(e.getEnd()))
+			if (e.getStart().equals(v))
 				l.add(e.getEnd());
-			if (e.getEnd().equals(v) && !l.contains(e.getStart()))
+			else if (e.getEnd().equals(v))
 				l.add(e.getStart());
 		}
 		return l;

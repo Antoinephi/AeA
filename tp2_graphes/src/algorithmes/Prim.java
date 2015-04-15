@@ -1,15 +1,18 @@
 package algorithmes;
 
 import generationGraphes.Edge;
+import generationGraphes.Generation;
 import generationGraphes.GraphImpl;
 import generationGraphes.Vertex;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import VertexExceptions.VertexAlreadyExistException;
 import VertexExceptions.VertexNotFoundException;
 
 public class Prim {
@@ -50,107 +53,111 @@ public class Prim {
 		for(Edge e : this.MST.getEdges())
 			System.out.println(e);
 	}
+
 	
-	public void algo(){
-		Vertex u;
-		List<Vertex> neighbours;
-		while(this.Q.size() > 0){
-			u = extract_min();
-			neighbours = this.graphe.getVertexNeighbours(u);
-			for(Vertex v : neighbours){
-				System.out.println(" this.key[" + v + "] : " + this.key[v.getNumber()] + "\n this.graphe.getEdge(" + u + ","+ v+").getValue() : " + this.graphe.getEdge(u, v).getValue());
-				if(this.Q.contains(v) && (this.key[v.getNumber()] > this.graphe.getEdge(u, v).getValue())){
-					v.setPere(u);
-					if(!this.MST.getVertex().contains(v))
-						this.MST.addVertex(v);
-					if(!this.MST.getVertex().contains(u))
-						this.MST.addVertex(u);
-					if(!this.MST.getEdges().contains(this.graphe.getEdge(u, v))){
-						this.MST.addEdge(this.graphe.getEdge(v.getNumber(), u.getNumber()));
-						this.key[v.getNumber()] = this.graphe.getEdge(u, v).getValue();
-					}
-				}
-					
-			}
-			
-		}
-	}
-	
-	/*public List<Vertex> algo_bis(){
-		List<Vertex> vertex = new LinkedList<Vertex>();
-		List<Boolean> sommetsMarques = new LinkedList<Boolean>();
-		for(Vertex v : this.graphe.getVertex())
-			sommetsMarques.add(false);
-		sommetsMarques.set(0, true);
-		System.out.println("pre while");
-		while(sommetsMarques.contains(false)){
-			List<Vertex> liste = null;
-			int maxEdgeValue = Integer.MAX_VALUE;
-			Edge e;
-			int numSommet = 0;
-			for(int i = 0; i < sommetsMarques.size(); i++){
-				if(sommetsMarques.get(i) == false){
-					System.out.println(i + " v");
-					liste = this.graphe.getVertexNeighbours(this.graphe.getVertex(i)); //A REGARDER : valeur du i
-					for(int j = 0; j < liste.size(); j++){
-						System.out.println("num edge value : " + this.graphe.getEdge(i, j));
-						if(liste.get(j).getNumber() == Math.max(i-1,0) && this.graphe.getEdge(i, j).getValue() < maxEdgeValue){
-							System.out.println("if");
-							maxEdgeValue = this.graphe.getEdge(i, j).getValue() ;
-							e = this.graphe.getEdge(i, j);
-							numSommet = j;
-						}
-					}
-				}
-				
-			}
-			vertex.add(new Vertex(numSommet));
-			sommetsMarques.set(numSommet, true);
-		}
-		return vertex;
-	}*/
-	
-	public GraphImpl algo_bis(){
+	public GraphImpl algo(){
 		List<Vertex> liste_vertex = new LinkedList<Vertex>();
-		boolean[] sommetsMarques = new boolean[this.graphe.getVertex().size()];
+		List<Vertex> sommetsMarques = this.graphe.getVertex();
 		List<Integer> edgesValues = new LinkedList<Integer>();
-		Vertex y = null,  x = null, v1 = null;
-		int nbSommetsMarques = 1;
+		Vertex y = null,  x = null;//,v2 = null;
 		int poidsMin = Integer.MAX_VALUE;
 
-		for (int i = 0; i < this.graphe.getEdges().size(); i++) {
+		for (int i = 0; i < this.graphe.getEdges().size(); i++) 
 			edgesValues.add(this.graphe.getEdges().get(i).getValue());
-		}
-		Collections.sort(edgesValues);
 		
-		sommetsMarques[0] = true;
-		while(nbSommetsMarques < sommetsMarques.length){
-			System.out.println("while");
+		Collections.sort(edgesValues);
+	/*
+		Vertex[][] listeVoisins = new Vertex[this.graphe.getVertex().size()][];
+		//System.out.println(listeVoisins.length);
+		for (int i = 0; i < this.graphe.getVertex().size(); i++) {
+			liste_vertex = this.graphe.getVertexNeighbours(new Vertex(i));
+			//System.out.println(liste_vertex.size());
+			listeVoisins[i] =  new Vertex[liste_vertex.size()];
+			for(int j = 0; j < liste_vertex.size(); j++){
+				listeVoisins[i][j] = liste_vertex.get(j);
+				//System.out.println(liste_vertex.get(j));
+			}
+		}
+		
+		for (int i = 0; i < listeVoisins.length; i++) {
+			for (int j = 0; j < listeVoisins[i].length; j++) {
+				//System.out.println("Vertex : " + i + " voisins : " + listeVoisins[i][j]);
+			}
+		}
+		*/
+		System.out.println("ok");
+		sommetsMarques.remove(0);
+		while(!sommetsMarques.isEmpty()){ // n-1 tours
+			//System.out.println("while");
 			poidsMin = Integer.MAX_VALUE;
-			for(int i = 0; i < sommetsMarques.length; i++){
-				if(sommetsMarques[i]){
-					v1 = new Vertex(i);
-					liste_vertex = this.graphe.getVertexNeighbours(v1);
-					for(Vertex v2 : liste_vertex){
-						System.out.println("v2 : " + v2);
-						if(!sommetsMarques[v2.getNumber()] && this.graphe.getEdge(v2, v1).getValue() < poidsMin){
+			for(Vertex v1 : sommetsMarques){ //parcours de l'ensemble des sommets non marqués (les autres étant supprimés) : max n-1 tours
+					//System.out.println("v1 :" + v1);
+					liste_vertex = this.graphe.getVertexNeighbours(v1);//m tours
+					for(Vertex v2 : liste_vertex){ // max n-1 tours
+					//for(int i = 0; i < listeVoisins[v1.getNumber()-1].length; i++){
+						//System.out.println("v2 : " + v2);
+						//v2 = listeVoisins[v1.getNumber()-1][i];
+						if(!sommetsMarques.contains(v2) && this.graphe.getEdge(v2, v1).getValue() < poidsMin){
 							poidsMin = this.graphe.getEdge(v2, v1).getValue();
 							y = v2;
 							x = v1;
-							System.out.println("sommet adjacent marqué : " + v2 + " poids : " + poidsMin);
+							//System.out.println("sommet adjacent marqué : " + v2 + " poids : " + poidsMin);
 						}
 						
 					}
-				}
 			}
 			
-			if(v1 != null && y != null){
-				System.out.println("ajout edge : " + x + " " + y);
+			if(x != null && y != null){
+				//System.out.println("ajout edge : " + x + " " + y + " de poids : " + poidsMin);
 				this.MST.addEdge(x, y, poidsMin);
-				sommetsMarques[y.getNumber()] = true;
-				nbSommetsMarques++;
+				sommetsMarques.remove(x);
 			}
 		}
+		
+		return this.MST;
+	}
+	
+	public GraphImpl algo_bis(){
+		List<Edge> edgeList  = this.graphe.getEdges();
+		List<Integer> edgesValues = new LinkedList<Integer>();
+		List<Vertex> sommetsMarques = this.graphe.getVertex();
+		int poidsMin = Integer.MAX_VALUE;
+		Edge edgeMin = null;
+		boolean v1;
+		boolean v2;
+
+		for (int i = 0; i < this.graphe.getEdges().size(); i++) 
+			edgesValues.add(this.graphe.getEdges().get(i).getValue());
+		Collections.sort(edgeList, new Comparator<Edge>() {
+
+			public int compare(Edge e1, Edge e2) {
+				return e1.getValue() - e2.getValue();
+			}
+		});
+		
+		sommetsMarques.remove(0);
+		while(!sommetsMarques.isEmpty()){ // n-1 tours
+			poidsMin = Integer.MAX_VALUE;
+			edgeMin = null;
+			for(Edge e : edgeList){ //m
+				if(e.getValue() > poidsMin)
+					break;
+				v1 = sommetsMarques.contains(e.getStart()); // max n-1
+				v2 = sommetsMarques.contains(e.getEnd()); // max n-1
+				if((v1 ^ v2)  && e.getValue() < poidsMin){
+					poidsMin = e.getValue();
+					edgeMin = e; 
+				}
+			}
+			if(edgeMin != null){
+				this.MST.addEdge(edgeMin);
+				edgeList.remove(edgeMin);
+				sommetsMarques.remove(edgeMin.getStart());
+				sommetsMarques.remove(edgeMin.getEnd());
+
+			}
+		}
+		
 		
 		return this.MST;
 	}
@@ -158,7 +165,14 @@ public class Prim {
 	public static void main(String[] args) {
 		
 		GraphImpl g = new GraphImpl();
-		for(int i = 0; i < 8; i++){
+		try {
+			g = new Generation().generateValueGraph(500,0.5);
+			System.out.println("yolo");
+		} catch (VertexNotFoundException | VertexAlreadyExistException e) {
+			e.printStackTrace();
+		}
+		
+		/*for(int i = 0; i < 8; i++){
 			g.addVertex();
 			//System.out.println(g.getVertex());
 		}
@@ -175,11 +189,14 @@ public class Prim {
 			g.addEdge(5,7, 12);
 		} catch(Exception e){
 			e.printStackTrace();
-		}
+		}*/
 		//g.affiche();
+		System.out.println("================= Début prim ====================");
 		Prim p = new Prim(g);
+		long startTime = System.currentTimeMillis();
 		p.algo_bis();
-		p.afficher_graphe();
+		System.out.println("total time : " + (float)(System.currentTimeMillis() - startTime)/1000.0);
+		//p.MST.affiche();
 	}
 	
 }

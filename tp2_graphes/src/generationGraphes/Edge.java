@@ -1,6 +1,6 @@
 package generationGraphes;
 
-public class Edge {
+public class Edge  {
 	private Vertex start;
 	private Vertex end;
 	private int value;
