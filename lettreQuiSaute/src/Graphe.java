@@ -36,10 +36,22 @@ public class Graphe {
 		// Recherche du dernier élément de la liste
 		Liste lastS = this.lastSucc(s);
 		Liste lastD = this.lastSucc(d);
-		
+
 		// Ajout de l'arete entre S et D
 		lastS.setNextElement(nextS);
 		lastD.setNextElement(nextD);
+	}
+
+	static int indice(String m, String[] tabMots) {
+		for (int i = 0; i < tabMots.length; ++i)
+			if (m.equals(tabMots[i]))
+				return i;
+		throw new Error(m + " n'est pas dans le tableau.");
+	}
+	
+	public void chemin(Graphe g, String from, String to){
+		int indFrom = indice(from,this.lesMots);
+		g.lettreQuiSaute();
 	}
 
 	/**
@@ -50,18 +62,20 @@ public class Graphe {
 	 */
 	private Liste lastSucc(int s) {
 		Liste current = this.listeSucc[s];
-			while (current.getNextElement() != null) {
-				current = current.getNextElement();
-			}
-		//System.out.println(s  + " ---> " + current.getElement() + ":" + this.lesMots[current.getElement()]);
+		while (current.getNextElement() != null) {
+			current = current.getNextElement();
+		}
+		// System.out.println(s + " ---> " + current.getElement() + ":" +
+		// this.lesMots[current.getElement()]);
 		return current;
 	}
 
 	public void lettreQuiSaute() {
 		for (int i = 0; i < this.nb; i++) {
-			for (int j = i+1; j < this.nb; j++) {
-				if (diffUneLettre(this.lesMots[i], this.lesMots[j])){
-					System.out.println("ajouter : " + i + " " + j + " : " + this.lesMots[i] + " : " + this.lesMots[j]);
+			for (int j = i + 1; j < this.nb; j++) {
+				if (diffUneLettre(this.lesMots[i], this.lesMots[j])) {
+					System.out.println("ajouter : " + i + " " + j + " : "
+							+ this.lesMots[i] + " : " + this.lesMots[j]);
 					this.ajouterArete(i, j);
 				}
 			}
@@ -73,7 +87,7 @@ public class Graphe {
 		for (int i = 0; i < this.listeSucc.length; i++) {
 			Liste l = this.listeSucc[i];
 			System.out.print(this.lesMots[l.getElement()] + " -> ");
-			while((l = l.getNextElement()) != null){
+			while ((l = l.getNextElement()) != null) {
 			}
 			System.out.println();
 		}
@@ -98,39 +112,40 @@ public class Graphe {
 		// une deuxieme difference a ete trouvee
 		return false;
 	}
-	
-	public void DFS(int x){
-		//Si dejaVu, on sort
-		if(this.dejaVu[x])
+
+	public void DFS(int x) {
+		// Si dejaVu, on sort
+		if (this.dejaVu[x])
 			return;
-		
-		//Sinon on le met a true
+
+		// Sinon on le met a true
 		this.dejaVu[x] = true;
-				
-		//Element correspondant a x
+
+		// Element correspondant a x
 		Liste current = this.listeSucc[x];
-		//Parcours de ses successeurs
-		while((current = current.getNextElement()) != null){
-			//parcours du tableau des dejaVu
-			for(int i = 0; i < this.dejaVu.length; i++){
-				if(!this.dejaVu[current.getElement()]) {//si le mot n'a pas ete rencontre
+		// Parcours de ses successeurs
+		while ((current = current.getNextElement()) != null) {
+			// parcours du tableau des dejaVu
+			for (int i = 0; i < this.dejaVu.length; i++) {
+				if (!this.dejaVu[current.getElement()]) {// si le mot n'a pas
+															// ete rencontre
 					System.out.print(this.lesMots[current.getElement()] + " ");
-					this.DFS(current.getElement()); //on le parcours
+					this.DFS(current.getElement()); // on le parcours
 				}
 			}
 		}
 	}
-	
-	public void visit(){
+
+	public void visit() {
 		int cpt = 0;
 
-		for(int i = 0; i < this.dejaVu.length; i++){
-			if(!this.dejaVu[i]){
+		for (int i = 0; i < this.dejaVu.length; i++) {
+			if (!this.dejaVu[i]) {
 				cpt++;
-				System.out.print("\n" + cpt  + " : " + this.lesMots[i] + " ");
+				System.out.print("\n" + cpt + " : " + this.lesMots[i] + " ");
 				this.DFS(i);
 			}
-		}		
+		}
 	}
 
 	public static void main(String[] args) {
@@ -139,14 +154,14 @@ public class Graphe {
 				"gnu", "glu", "gui", "guy", "gre", "gue", "ace", "acm", "agi",
 				"ait", "aie", "ail", "air", "and", "alu", "ami", "arc", "are",
 				"art", "apr", "avr", "sur", "mat", "mur" };
-		String[] dicocourt = { "gag", "gai", "gaz", 
-				"gnu", "glu", "gui", "guy"};
+		String[] dicocourt = { "gag", "gai", "gaz", "gnu", "glu", "gui", "guy" };
 		Graphe g = new Graphe(dico3court);
-		/*g.lettreQuiSaute();
-		g.visit();*/
+		/*
+		 * g.lettreQuiSaute(); g.visit();
+		 */
 		g = new Graphe(Dicos.dico4);
 		g.lettreQuiSaute();
 		g.visit();
-		
+
 	}
 }

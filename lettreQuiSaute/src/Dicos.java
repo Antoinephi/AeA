@@ -475,4 +475,4 @@ public class Dicos {
 			"boite", "herve", "calin", "roder", "boite", "nonce", "ronce",
 			"avenu", "aimer", "poney", "jones", "fonda", "pondu", "tondu",
 			"nager", "vagin", "fesse", "genie", "longe", "ronge" };
-}
+   }

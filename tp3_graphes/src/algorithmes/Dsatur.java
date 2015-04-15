@@ -7,18 +7,29 @@ import VertexExceptions.VertexNotFoundException;
 import graphe.Generation;
 import graphe.GraphImpl;
 import graphe.Vertex;
-
+/**
+ * Dsatur est un algorithme de coloration de graphe utilisant le degré de chaque sommet et son degré de saturation
+ *
+ */
 public class Dsatur {
 	private GraphImpl graphe;
 	private int[] degrees; 
 	private int[] dsatur;
 
+	/**
+	 * L'initialisation de l'algorithme Dsatur prend en paramètre un graphe et crée les tableaux de degrés et de degrés de saturation, qui sont au début identiques
+	 * @param graphe
+	 */
 	public Dsatur(GraphImpl graphe){
 		this.graphe = graphe;
 		this.degrees = initDegrees();
 		this.dsatur = initDsatur();
 	}
 	
+	/**
+	 * Permet d'obtenir le nombre de couleurs obtenu après l'algorithme
+	 * @return le nombre de couleurs du graphe, -1 si le graphe n'est pas encore coloré
+	 */
 	public int getMaxColor(){
 		int max = 0;
 		for (Vertex v : graphe.getVertex()) {
@@ -28,6 +39,11 @@ public class Dsatur {
 		return max;
 	}
 	
+	/**
+	 * 
+	 * @param tab
+	 * @return
+	 */
 	public LinkedList<Integer> getMax(int[] tab){
 		LinkedList<Integer> indMax = new LinkedList<Integer>();
 		int max = tab[0];
