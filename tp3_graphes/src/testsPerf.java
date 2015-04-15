@@ -10,6 +10,12 @@ import algorithmes.Dsatur;
 import algorithmes.Naif;
 import algorithmes.WelshPowel;
 
+/**
+ * Cette classe permet de lancer un certain nombre d'exécutions afin de tester les performances des différents algorithmes implémentés
+ * Afin de tester sur différentes variables, il suffit de faire varier les variables.
+ * Pour chaque test, un fichier est créé reportant tous les résultats, ce qui permet de créer un gnuplot
+ *
+ */
 public class testsPerf {
 	public static void main(String[] args) throws VertexNotFoundException,
 			VertexAlreadyExistException, IOException {
