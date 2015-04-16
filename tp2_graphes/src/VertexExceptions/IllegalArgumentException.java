@@ -1,7 +1,7 @@
 package VertexExceptions;
 
-public class IllegalArgumentException {
-	public IllegalArgumentException(){
+public class IllegalArgumentException extends Exception {
+	public IllegalArgumentException() {
 		System.err.println("Illegal argument");
 	}
 }

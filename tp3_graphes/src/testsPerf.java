@@ -121,5 +121,6 @@ public class testsPerf {
 			output.flush();
 
 		}
+		output.close();
 	}
 }

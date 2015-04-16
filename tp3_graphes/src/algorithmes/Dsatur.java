@@ -2,9 +2,7 @@ package algorithmes;
 
 import java.util.LinkedList;
 
-import VertexExceptions.VertexAlreadyExistException;
 import VertexExceptions.VertexNotFoundException;
-import graphe.Generation;
 import graphe.GraphImpl;
 import graphe.Vertex;
 
@@ -24,7 +22,7 @@ public class Dsatur {
 	 * identiques
 	 * 
 	 * @param graphe
-	 * @throws VertexNotFoundException 
+	 * @throws VertexNotFoundException
 	 */
 	public Dsatur(GraphImpl graphe) throws VertexNotFoundException {
 		this.graphe = graphe;
@@ -76,7 +74,7 @@ public class Dsatur {
 	 * 
 	 * @return le tableau de degrée de saturation initialisé avec les degrés des
 	 *         sommets
-	 * @throws VertexNotFoundException 
+	 * @throws VertexNotFoundException
 	 */
 	public int[] initDsatur() throws VertexNotFoundException {
 		int[] dsatur = new int[this.graphe.getVertex().size()];
@@ -91,7 +89,7 @@ public class Dsatur {
 	 * Initialise le tableau de degrés des sommets
 	 * 
 	 * @return le tableau de degrés des sommets
-	 * @throws VertexNotFoundException 
+	 * @throws VertexNotFoundException
 	 */
 	public int[] initDegrees() throws VertexNotFoundException {
 		int[] degrees = new int[this.graphe.getVertex().size()];
@@ -126,7 +124,7 @@ public class Dsatur {
 	 * @param le
 	 *            numéro du sommet à colorer
 	 * @return number la couleur minimum que l'on peut affecter à un sommet
-	 * @throws VertexNotFoundException 
+	 * @throws VertexNotFoundException
 	 */
 	public int getMinColor(int number) throws VertexNotFoundException {
 		LinkedList<Integer> alreadyUsedColor = new LinkedList<Integer>();
@@ -156,7 +154,8 @@ public class Dsatur {
 
 	/**
 	 * Algorithme de coloration de graphe Dsatur
-	 * @throws VertexNotFoundException 
+	 * 
+	 * @throws VertexNotFoundException
 	 */
 	public void algoDSATUR() throws VertexNotFoundException {
 		int max = this.getMax(this.degrees).get(0);
@@ -196,7 +195,7 @@ public class Dsatur {
 	 * @param list
 	 *            une liste d'entier
 	 * @return l'indice de l'élément maximal du graphe
-	 * @throws VertexNotFoundException 
+	 * @throws VertexNotFoundException
 	 */
 	private int getMax(LinkedList<Integer> list) throws VertexNotFoundException {
 		int max = list.get(0);

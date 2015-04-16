@@ -1,8 +1,5 @@
 package graphe;
 
-import java.util.Iterator;
-
-import VertexExceptions.VertexAlreadyExistException;
 import VertexExceptions.VertexNotFoundException;
 
 public interface GraphItf {

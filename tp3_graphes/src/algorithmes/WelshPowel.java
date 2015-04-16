@@ -2,9 +2,7 @@ package algorithmes;
 
 import java.util.LinkedList;
 
-import VertexExceptions.VertexAlreadyExistException;
 import VertexExceptions.VertexNotFoundException;
-import graphe.Generation;
 import graphe.GraphImpl;
 import graphe.Vertex;
 
@@ -35,7 +33,7 @@ public class WelshPowel {
 	 * Retourne un tableau contenant les sommets triés dans l'ordre décroissant
 	 * 
 	 * @return un tableau contenant les sommets triés dans l'ordre décroissant
-	 * @throws VertexNotFoundException 
+	 * @throws VertexNotFoundException
 	 */
 	public int[] initDegrees() throws VertexNotFoundException {
 		int[] degrees = new int[this.graphe.getVertex().size()];
@@ -79,7 +77,8 @@ public class WelshPowel {
 
 	/**
 	 * Algorithme de coloration de graphe
-	 * @throws VertexNotFoundException 
+	 * 
+	 * @throws VertexNotFoundException
 	 */
 	public void algoWelshPowel() throws VertexNotFoundException {
 		int colorMax = 0;

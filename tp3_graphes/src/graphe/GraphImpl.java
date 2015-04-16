@@ -207,10 +207,10 @@ public class GraphImpl implements GraphItf {
 	}
 
 	/**
-	 * 
-	 * @param i
-	 * @param j
-	 * @param value
+	 * Ajoute l'arète valuée dont le numéro du sommet de départ est i, le numéro du sommet d'arrivée j et la valeur value
+	 * @param i le numéro du sommet de départ
+	 * @param j le numéro du sommet d'arrivée
+	 * @param value la pondération du graphe
 	 * @throws VertexNotFoundException
 	 */
 	public void addEdgeValue(int i, int j, int value)

@@ -2,9 +2,7 @@ package algorithmes;
 
 import java.util.LinkedList;
 
-import VertexExceptions.VertexAlreadyExistException;
 import VertexExceptions.VertexNotFoundException;
-import graphe.Generation;
 import graphe.GraphImpl;
 import graphe.Vertex;
 
@@ -32,10 +30,10 @@ public class Naif {
 
 	/**
 	 * Algorithme naif de coloration de graphe
-	 * @throws VertexNotFoundException 
+	 * 
+	 * @throws VertexNotFoundException
 	 */
 	public void algoNaif() throws VertexNotFoundException {
-		int min = -1;
 		for (int i = 0; i < this.graphe.getVertex().size(); i++) {
 			int j = 0;
 			LinkedList<Vertex> neighboors = this.graphe
