@@ -299,7 +299,7 @@ public class GraphImpl implements GraphItf {
 	 * @param Edges
 	 *            la liste des arètes
 	 */
-	public void setEdges(List Edges) {
+	public void setEdges(List<Edge> Edges) {
 		this.Edges = Edges;
 	}
 

@@ -2,39 +2,46 @@ package generationGraphes;
 
 public class Vertex {
 	private int number;
-	private Vertex pere;
 	private int part;
-	
-	public Vertex(int number){
+
+	public Vertex(int number) {
 		this.number = number;
 		this.part = -1;
 	}
-	
-	public void setPart(int part){
+
+	/**
+	 * Set la part pour Kruskal (iscyclic)
+	 * 
+	 * @param part
+	 *            la partie à laquelle fait partie le sommet
+	 */
+	public void setPart(int part) {
 		this.part = part;
 	}
-	
-	public int getPart(){
+
+	/**
+	 * Retourne la partie à laquelle fait partie le sommet
+	 * 
+	 * @return part la partie à laquelle fait partie le sommet
+	 */
+	public int getPart() {
 		return this.part;
 	}
-	
-	public int getNumber(){
+
+	/**
+	 * Retourne le numéro du sommet
+	 * 
+	 * @return le numéro du sommet
+	 */
+	public int getNumber() {
 		return this.number;
 	}
-	
-	public boolean equals(Object o){
+
+	/**
+	 * Vérifie que l'objet o est bien le sommet boolean
+	 */
+	public boolean equals(Object o) {
 		return this.getNumber() == ((Vertex) o).getNumber();
 	}
 
-	public Vertex getPere() {
-		return pere;
-	}
-
-	public void setPere(Vertex pere) {
-		this.pere = pere;
-	}
-	
-	public String toString(){
-		return this.number +"";
-	}
 }
