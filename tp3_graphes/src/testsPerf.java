@@ -11,9 +11,11 @@ import algorithmes.Naif;
 import algorithmes.WelshPowel;
 
 /**
- * Cette classe permet de lancer un certain nombre d'exécutions afin de tester les performances des différents algorithmes implémentés
- * Afin de tester sur différentes variables, il suffit de faire varier les variables.
- * Pour chaque test, un fichier est créé reportant tous les résultats, ce qui permet de créer un gnuplot
+ * Cette classe permet de lancer un certain nombre d'exécutions afin de tester
+ * les performances des différents algorithmes implémentés Afin de tester sur
+ * différentes variables, il suffit de faire varier les variables. Pour chaque
+ * test, un fichier est créé reportant tous les résultats, ce qui permet de
+ * créer un gnuplot
  *
  */
 public class testsPerf {
@@ -26,11 +28,11 @@ public class testsPerf {
 		int nbColor1 = 0;
 		int nbColor2 = 0;
 		int nbColor3 = 0;
-		
-		FileWriter fw = new FileWriter("comparaisonPtime.csv", true);
+
+		FileWriter fw = new FileWriter("comparaisonPvertex.csv", true);
 		BufferedWriter output = new BufferedWriter(fw);
-		
-		for (double i = 0.1; i <=1; i += 0.1) {
+
+		for (double i = 0.1; i <= 1; i += 0.1) {
 			t1 = (float) 0;
 			t2 = (float) 0;
 			t3 = (float) 0;
@@ -38,13 +40,13 @@ public class testsPerf {
 			nbColor1 = 0;
 			nbColor2 = 0;
 			nbColor3 = 0;
-			
-			output.write(i+";");
+
+			output.write(i + ";");
 			output.flush();
 			for (int j = 0; j < 50; j++) {
 
 				Generation g = new Generation();
-				GraphImpl graphe = g.generateValueGraph(1000, i);
+				GraphImpl graphe = g.generateValueGraph(100, i);
 				System.out.println(graphe.getVertex().size());
 				// graphe.affiche();
 
@@ -85,21 +87,17 @@ public class testsPerf {
 				nbColor3 += algo3.getMaxColor();
 			}
 			float t1Moy = t1 / 50;
-			output.write(t1Moy+";");
+			output.write(t1Moy + ";");
 			output.flush();
 
 			System.out.println("algo naif prend en moyenne : " + t1Moy
 					+ " secondes");
 			float t2Moy = t2 / 50;
-			output.write(t2Moy+";");
-			output.flush();
 
 			System.out.println("algo Welsh Powel prend en moyenne : " + t2Moy
 					+ " secondes");
 
 			float t3Moy = t3 / 50;
-			output.write(t3Moy+"\n");
-			output.flush();
 
 			System.out.println("algo Dsatur prend en moyenne : " + t3Moy
 					+ " secondes");
@@ -107,16 +105,20 @@ public class testsPerf {
 			int nbColor1Moy = nbColor1 / 50;
 			System.out.println("\n algo naif a en moyenne : " + nbColor1Moy
 					+ " couleurs");
-
+			output.write(nbColor1Moy + ";");
+			output.flush();
 
 			int nbColor2Moy = nbColor2 / 50;
 			System.out.println("algo Welsh Powel a en moyenne : " + nbColor2Moy
 					+ " couleurs");
-
+			output.write(nbColor2Moy + ";");
+			output.flush();
 
 			int nbColor3Moy = nbColor3 / 50;
 			System.out.println("algo dsatur a en moyenne : " + nbColor3Moy
 					+ " couleurs");
+			output.write(nbColor3Moy + "\n");
+			output.flush();
 
 		}
 	}

@@ -2,6 +2,7 @@ package graphe;
 
 import java.util.LinkedList;
 
+import VertexExceptions.EdgeNotFoundException;
 import VertexExceptions.VertexAlreadyExistException;
 import VertexExceptions.VertexNotFoundException;
 
@@ -15,54 +16,126 @@ public class GraphImpl implements GraphItf {
 		this.Edges = new LinkedList<Edge>();
 	}
 
+	/**
+	 * Retourne les sommets du graphe
+	 * 
+	 * @return la liste des sommets du graphe
+	 */
 	public LinkedList<Vertex> getVertex() {
 		return this.Vertex;
 	}
 
+	/**
+	 * Retourne les arètes du graphe
+	 * 
+	 * @return la liste des arètes du graphe
+	 */
 	public LinkedList<Edge> getEdges() {
 		return this.Edges;
 	}
 
+	/**
+	 * Permet d'ajouter n sommets au graphe
+	 * 
+	 * @param n
+	 *            le nombre de sommets à ajouter
+	 */
 	public void addNVertex(int n) {
 		for (int i = 0; i < n; i++) {
 			this.addVertex();
 		}
 	}
 
+	/**
+	 * Permet d'ajouter n sommets dont le numéro du premier est fixé
+	 * 
+	 * @param n
+	 *            le nombre de sommets à ajouter
+	 * @param start
+	 *            le numéro du premier sommet
+	 * @throws VertexAlreadyExistException
+	 */
 	public void addVertexWithStart(int n, int start)
 			throws VertexAlreadyExistException {
 		for (int i = 0; i < n; i++) {
-			this.addVertexNumber(n + i);
+			this.addVertex(n + i);
 		}
 	}
 
-	public void addVertex(int i) {
+	/**
+	 * Ajoute le sommet de numéro i
+	 * 
+	 * @param i
+	 *            le numéro du sommet
+	 * @throws VertexAlreadyExistException
+	 */
+	public void addVertex(int i) throws VertexAlreadyExistException {
+		boolean isPresent = false;
+		for (Vertex vertex : Vertex) {
+			if (vertex.getNumber() == i) {
+				isPresent = true;
+				break;
+			}
+		}
+		if (isPresent)
+			throw new VertexAlreadyExistException();
 		Vertex v = new Vertex(i);
 		this.Vertex.add(v);
 	}
 
+	/**
+	 * Ajoute un sommet, celui-ci aura le numéro suivant
+	 */
 	public void addVertex() {
 		Vertex newVertex = new Vertex(this.Vertex.size() - 1);
 		this.Vertex.add(newVertex);
 	}
 
-	public void removeVertex(Vertex vertex) {
+	/**
+	 * Supprime un sommet
+	 * 
+	 * @param vertex
+	 *            le sommet à supprimer du graphe
+	 * @throws VertexNotFoundException
+	 *             si le sommet n'existe pas
+	 */
+	public void removeVertex(Vertex vertex) throws VertexNotFoundException {
+		if (!Vertex.contains(vertex))
+			throw new VertexNotFoundException();
 		this.Vertex.remove(vertex.getNumber());
 	}
 
-	public void addVertexNumber(int i) throws VertexAlreadyExistException {
-		for (int j = 0; j < this.Vertex.size(); j++) {
-			if (this.Vertex.get(j).getNumber() == i)
-				throw new VertexAlreadyExistException();
+	/**
+	 * Supprime le sommet de numéro i
+	 * 
+	 * @param i
+	 *            le numéro du sommet à supprimer
+	 * @throws VertexNotFoundException
+	 *             si le sommet n'existe pas
+	 */
+	public void removeVertexNumber(int i) throws VertexNotFoundException {
+		boolean isPresent = false;
+		for (Vertex v : Vertex) {
+			if (v.getNumber() == i) {
+				isPresent = true;
+				break;
+			}
 		}
-		Vertex newVertex = new Vertex(i);
-		this.Vertex.add(newVertex);
-	}
-
-	public void removeVertexNumber(int i) {
+		if (!isPresent)
+			throw new VertexNotFoundException();
 		this.Vertex.remove(i);
 	}
 
+	/**
+	 * Ajoute une arète entre les sommets v1 et v2
+	 * 
+	 * @param v1
+	 *            le sommet de début de l'arète
+	 * @param v2
+	 *            le sommet de fin de l'arète
+	 * @throws VertexNotFoundException
+	 *             si l'un des deux sommets n'existe pas
+	 */
 	public void addEdge(Vertex v1, Vertex v2) throws VertexNotFoundException {
 		if (!this.Vertex.contains(v1) || !this.Vertex.contains(v2))
 			throw new VertexNotFoundException();
@@ -70,32 +143,117 @@ public class GraphImpl implements GraphItf {
 		this.Edges.add(edge);
 	}
 
-	public void addValue(Edge edge, int value) {
+	/**
+	 * Ajoute une pondération à l'arète
+	 * 
+	 * @param edge
+	 *            l'arète à valuer
+	 * @param value
+	 *            la valeur donnée
+	 * @throws EdgeNotFoundException
+	 */
+	public void addValue(Edge edge, int value) throws EdgeNotFoundException {
+		if (!Edges.contains(edge))
+			throw new EdgeNotFoundException();
 		edge.setValue(value);
 	}
 
-	public void addEdge(Vertex v1, Vertex v2, int value) {
+	/**
+	 * Ajoute l'arète de début v1 et de fin v2
+	 * 
+	 * @param v1
+	 *            le sommet de départ
+	 * @param v2
+	 *            le somemt d'arrivée
+	 * @param value
+	 *            la valeur a donner à l'arète
+	 * @throws VertexNotFoundException
+	 *             si l'un de deux sommets n'existe pas
+	 */
+	public void addEdge(Vertex v1, Vertex v2, int value)
+			throws VertexNotFoundException {
+		if (!Vertex.contains(v1) || !Vertex.contains(v2))
+			throw new VertexNotFoundException();
 		Edge edge = new Edge(v1, v2);
 		edge.setValue(value);
 
 	}
 
+	/**
+	 * Ajoute l'arète dont le numéro de somme de départ est i et le numéro de
+	 * sommet d'arrivée est j
+	 * 
+	 * @param i
+	 *            le numéro du sommet de départ
+	 * @param j
+	 *            le numéro du sommet d'arrivée
+	 * @throws VertexNotFoundException
+	 *             si l'un des deux sommets n'existe pas
+	 */
 	public void addEdge(int i, int j) throws VertexNotFoundException {
+		boolean isPresenti = false;
+		boolean isPresentj = false;
+		for (Vertex v : Vertex) {
+			if (v.getNumber() == i)
+				isPresenti = true;
+			if (v.getNumber() == j)
+				isPresentj = true;
+		}
+		if (!isPresenti || !isPresentj)
+			throw new VertexNotFoundException();
+
 		Edge edge = new Edge(getVertexFromNumber(i), getVertexFromNumber(j));
 		this.Edges.add(edge);
 	}
 
+	/**
+	 * 
+	 * @param i
+	 * @param j
+	 * @param value
+	 * @throws VertexNotFoundException
+	 */
 	public void addEdgeValue(int i, int j, int value)
 			throws VertexNotFoundException {
+		boolean isPresenti = false;
+		boolean isPresentj = false;
+		for (Vertex v : Vertex) {
+			if (v.getNumber() == i)
+				isPresenti = true;
+			if (v.getNumber() == j)
+				isPresentj = true;
+		}
+		if (!isPresenti || !isPresentj)
+			throw new VertexNotFoundException();
 		Edge edge = new Edge(getVertexFromNumber(i), getVertexFromNumber(j));
 		edge.setValue(value);
 		this.Edges.add(edge);
 	}
 
-	public Vertex getVertex(int i) {
+	/**
+	 * Retourne le ième sommet de la liste des sommets du graphe
+	 * 
+	 * @param l
+	 *            'indice du sommet à retourner
+	 * @return le ième sommet
+	 * @throws VertexNotFoundException
+	 *             si le nombre de sommet est inférieur à i
+	 */
+	public Vertex getVertex(int i) throws VertexNotFoundException {
+		if (this.Vertex.size() < i)
+			throw new VertexNotFoundException();
 		return this.Vertex.get(i);
 	}
 
+	/**
+	 * Retourne le sommet numéro i
+	 * 
+	 * @param i
+	 *            le numéro du sommet à retourner
+	 * @return le sommet de numéro i
+	 * @throws VertexNotFoundException
+	 *             si ce sommet n'existe pas
+	 */
 	public Vertex getVertexFromNumber(int i) throws VertexNotFoundException {
 		for (Vertex vertex : this.Vertex) {
 			if (vertex.getNumber() == i)
@@ -104,6 +262,9 @@ public class GraphImpl implements GraphItf {
 		throw new VertexNotFoundException();
 	}
 
+	/**
+	 * Permet l'affichage du graphe
+	 */
 	public void affiche() {
 		for (int i = 0; i < this.Edges.size(); i++) {
 			System.out.println(this.Edges.get(i).getStart().getNumber()
@@ -115,16 +276,39 @@ public class GraphImpl implements GraphItf {
 		}
 	}
 
-	public int getVertexDegree(Vertex v){
+	/**
+	 * Retourne le degré du sommet v
+	 * 
+	 * @param v
+	 *            le sommet dont on veut connaitre le degré
+	 * @return le degré de ce sommet
+	 * @throws VertexNotFoundException
+	 *             si le sommet v n'existe pas
+	 */
+	public int getVertexDegree(Vertex v) throws VertexNotFoundException {
+		if (!Vertex.contains(v))
+			throw new VertexNotFoundException();
 		int degree = 0;
 		for (Edge edge : Edges) {
-			if(edge.getStart() == v || edge.getEnd() == v)
+			if (edge.getStart() == v || edge.getEnd() == v)
 				degree++;
 		}
 		return degree;
 	}
-	
-	public LinkedList<Vertex> getVertexNeighboors(Vertex v) {
+
+	/**
+	 * Retourne les sommets voisins du sommet v
+	 * 
+	 * @param v
+	 *            le sommet dont on souhaite connaitre les voisins
+	 * @return la liste des voisins de v
+	 * @throws VertexNotFoundException
+	 *             si ce sommet n'existe pas
+	 */
+	public LinkedList<Vertex> getVertexNeighboors(Vertex v)
+			throws VertexNotFoundException {
+		if (!Vertex.contains(v))
+			throw new VertexNotFoundException();
 		LinkedList<Vertex> vertexNeighboors = new LinkedList<Vertex>();
 		LinkedList<Edge> edgesStart = getStartEdgesFromVertex(v);
 		LinkedList<Edge> edgesEnd = getEndEdgesFromVertex(v);
@@ -139,7 +323,20 @@ public class GraphImpl implements GraphItf {
 		return vertexNeighboors;
 	}
 
-	public LinkedList<Edge> getEndEdgesFromVertex(Vertex v) {
+	/**
+	 * Retourne la liste des sommets vEnd tels qu'il existe une arète pour
+	 * laquelle v est un départ et vEnd une arrivée
+	 * 
+	 * @param v
+	 *            le sommet de départ
+	 * @return la liste des sommets
+	 * @throws VertexNotFoundException
+	 *             si le sommet de départ n'existe pas
+	 */
+	public LinkedList<Edge> getEndEdgesFromVertex(Vertex v)
+			throws VertexNotFoundException {
+		if (!Vertex.contains(v))
+			throw new VertexNotFoundException();
 		LinkedList<Edge> edges = new LinkedList<Edge>();
 		for (Edge edge : this.Edges) {
 			if (edge.getStart() == v
@@ -151,7 +348,20 @@ public class GraphImpl implements GraphItf {
 		return edges;
 	}
 
-	public LinkedList<Edge> getStartEdgesFromVertex(Vertex v) {
+	/**
+	 * Retourne la liste des sommets vStart tels qu'il existe une arète pour
+	 * laquelle v est une arrivée et vStart un départ
+	 * 
+	 * @param v
+	 *            le sommet d'arrivée
+	 * @return la liste des sommets
+	 * @throws VertexNotFoundException
+	 *             si le sommet d'arrivée n'existe pas
+	 */
+	public LinkedList<Edge> getStartEdgesFromVertex(Vertex v)
+			throws VertexNotFoundException {
+		if (!Vertex.contains(v))
+			throw new VertexNotFoundException();
 		LinkedList<Edge> edges = new LinkedList<Edge>();
 		for (Edge edge : this.Edges) {
 			if (edge.getEnd() == v
@@ -163,7 +373,13 @@ public class GraphImpl implements GraphItf {
 		return edges;
 	}
 
-	public String graphToTxt() {
+	/**
+	 * Retourne le texte correspondant au graphe
+	 * 
+	 * @return un texte représentant le graphe
+	 * @throws VertexNotFoundException
+	 */
+	public String graphToTxt() throws VertexNotFoundException {
 		String formatTxt = "";
 		for (int i = 0; i < this.Vertex.size(); i++) {
 			Vertex currentVertex = this.Vertex.get(i);
@@ -187,7 +403,17 @@ public class GraphImpl implements GraphItf {
 		return formatTxt;
 	}
 
-	public void txtToGraph(String txt) throws VertexNotFoundException {
+	/**
+	 * Crée un graphe à partir d'un format texte représentant ce graphe
+	 * 
+	 * @param txt
+	 *            le texte représentant un graphe
+	 * @throws VertexNotFoundException
+	 * @throws NumberFormatException
+	 * @throws VertexAlreadyExistException
+	 */
+	public void txtToGraph(String txt) throws VertexNotFoundException,
+			NumberFormatException, VertexAlreadyExistException {
 		String[] txtSplitLine = txt.split("\n");
 		for (int i = 0; i < txtSplitLine.length; i++) {
 			String[] txtSplitWord = txtSplitLine[i].split(" ");
@@ -203,12 +429,6 @@ public class GraphImpl implements GraphItf {
 			}
 
 		}
-		/*
-		 * this.addVertex(Integer.parseInt(txtSplit[0])); for(int
-		 * i=0;i<txtSplit.length;i++){ if(txtSplit[i] == "\n" &&
-		 * i<txtSplit.length-1) this.addVertex(Integer.parseInt(txtSplit[i+1]));
-		 * System.out.println("here : "+Integer.parseInt(txtSplit[i+1])); }
-		 */
 	}
 
 }
