@@ -15,82 +15,76 @@ import VertexExceptions.VertexNotFoundException;
 
 public class Prim {
 	private GraphImpl graphe;
-	private List<Vertex> Q;
 	private GraphImpl MST;
-	private int[] key;
 
 	public Prim(GraphImpl graphe) {
 		this.graphe = graphe;
-		this.Q = graphe.getVertex();
 		this.MST = new GraphImpl();
-		init_key();
 	}
 
-	public void init_key() {
-		this.key = new int[graphe.getVertex().size() + 1];
-		for (int i = 0; i < key.length; i++) {
-			this.key[i] = Integer.MAX_VALUE;
-		}
-		/*
-		 * int alea = (int) (Math.random() * (this.key.length)); key[alea] = 0;
-		 */
-		this.key[0] = 0;
-	}
-
-	public Vertex extract_min() {
-		Vertex min = new Vertex(Integer.MAX_VALUE);
-		for (Vertex v : Q) {
-			min = (min.getNumber() > v.getNumber() ? v : min);
-		}
-		this.Q.remove(min);
-		return min;
-	}
-
-	public void afficher_graphe() {
-		System.out
-				.println("Nombre de sommets : " + this.MST.getVertex().size());
-		System.out.println("Nombre d'arrêtes : " + this.MST.getEdges().size());
-		for (Edge e : this.MST.getEdges())
-			System.out.println(e);
-	}
-
+	/**
+	 * Algorithme de prim : calcul d'un arbre de recouvrement minimum
+	 * 
+	 * @return MST : Minimum Spanning Tree
+	 */
 	public GraphImpl algo() {
 		List<Edge> edgeList = this.graphe.getEdges();
-		List<Integer> edgesValues = new LinkedList<Integer>();
 		List<Vertex> sommetsMarques = this.graphe.getVertex();
 		int poidsMin = Integer.MAX_VALUE;
 		Edge edgeMin = null;
 		boolean v1;
 		boolean v2;
+		// Si le graphe ne contient qu'une seule arrête, le MST est lui même
 		if (edgeList.size() < 2)
 			return this.graphe;
-		for (int i = 0; i < this.graphe.getEdges().size(); i++)
-			edgesValues.add(this.graphe.getEdges().get(i).getValue());
+
+		/**
+		 * On trie la liste des arrêtes par ordre croissant de valeur, permet
+		 * par la suite d'accélérer le calcul
+		 */
 		Collections.sort(edgeList, new Comparator<Edge>() {
 
 			public int compare(Edge e1, Edge e2) {
 				return e1.getValue() - e2.getValue();
 			}
 		});
-
+		// On marque un sommet arbitraire
 		sommetsMarques.remove(0);
+		// Tant que tous les sommets ne sont pas marqués
 		while (!sommetsMarques.isEmpty()) { // n-1 tours
 			poidsMin = Integer.MAX_VALUE;
 			edgeMin = null;
-			for (Edge e : edgeList) { // m
+			// On parcours chaque arrête
+			for (Edge e : edgeList) { // m tours max
+				/**
+				 * Si la valeur de l'arrête courante est > à la val min
+				 * enregristrée ça ne sert à rien d'aller plus loin, puisque
+				 * la liste est triée.
+				 */
 				if (e.getValue() > poidsMin)
 					break;
+
+				/**
+				 * On regarde si les sommets de l'arrête sont marqués
+				 */
 				v1 = sommetsMarques.contains(e.getStart()); // max n-1
 				v2 = sommetsMarques.contains(e.getEnd()); // max n-1
+				// Un seul des sommets doit être marqué et la val de l'arrête
+				// < poidsMin
 				if ((v1 ^ v2) && e.getValue() < poidsMin) {
 					poidsMin = e.getValue();
 					edgeMin = e;
 				}
 			}
+			// Si on a trouvé une arrete correspondant
 			if (edgeMin != null) {
-				this.MST.addEdge(edgeMin);
-				//System.out.println("edge added : " + edgeMin);
+
+				this.MST.addEdge(edgeMin); // on ajoute
+				// On retire de la liste, moins de tours de boucles pour la
+				// suite
 				edgeList.remove(edgeMin);
+				// On marque les sommets de l'arrête en les retirant de la
+				// liste
 				sommetsMarques.remove(edgeMin.getStart());
 				sommetsMarques.remove(edgeMin.getEnd());
 
