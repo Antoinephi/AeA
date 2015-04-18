@@ -8,12 +8,12 @@ public class Edge {
 	private int value;
 
 	/**
-	 * Constructeur d'une arète
+	 * Constructeur d'une arï¿½te
 	 * 
 	 * @param start
-	 *            le numéro de sommet du début de l'arète
+	 *            le numï¿½ro de sommet du dï¿½but de l'arï¿½te
 	 * @param end
-	 *            le numéro de sommet de fin de l'arète
+	 *            le numï¿½ro de sommet de fin de l'arï¿½te
 	 */
 	public Edge(Vertex start, Vertex end) {
 		this.start = start;
@@ -22,40 +22,53 @@ public class Edge {
 	}
 
 	/**
-	 * Retourne le numéro de sommet du début de l'arète
+	 * Retourne le numï¿½ro de sommet du dï¿½but de l'arï¿½te
 	 * 
-	 * @return le numéro de sommet du début de l'arète
+	 * @return le numï¿½ro de sommet du dï¿½but de l'arï¿½te
 	 */
 	public Vertex getStart() {
 		return this.start;
 	}
 
 	/**
-	 * Retourne le numéro de sommet de la fin de l'arète
+	 * Retourne le numï¿½ro de sommet de la fin de l'arï¿½te
 	 * 
-	 * @return le numéro de sommet de la fin de l'arète
+	 * @return le numï¿½ro de sommet de la fin de l'arï¿½te
 	 */
 	public Vertex getEnd() {
 		return this.end;
 	}
 
 	/**
-	 * Permet de fixer une pondération à l'arète
+	 * Permet de fixer une pondï¿½ration ï¿½ l'arï¿½te
 	 * 
 	 * @param value
-	 *            un entier représentant la pondération de l'arète
+	 *            un entier reprï¿½sentant la pondï¿½ration de l'arï¿½te
 	 */
 	public void setValue(int value) {
 		this.value = value;
 	}
 
 	/**
-	 * Retourne la pondération de l'arète
+	 * Retourne la pondï¿½ration de l'arï¿½te
 	 * 
-	 * @return la valeur de pondération de l'arète
+	 * @return la valeur de pondï¿½ration de l'arï¿½te
 	 */
 	public int getValue() {
 		return this.value;
+	}
+	
+	/**
+	 * Retourne l'appartenance d'un sommet Ã  cette arrÃªte
+	 * @param v : le sommet Ã  tester
+	 * @return true si le sommet appartient Ã  l'arrÃªte
+	 */
+	public boolean contains(Vertex v){
+		return v.equals(this.start) || v.equals(this.end);
+	}
+	
+	public String toString(){
+		return "start : " + this.start + " end : " + this.end; 
 	}
 
 }

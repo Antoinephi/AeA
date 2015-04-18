@@ -27,9 +27,9 @@ public class GraphImpl implements GraphItf {
 	}
 
 	/**
-	 * Retourne la liste des arètes du graphe
+	 * Retourne la liste des arï¿½tes du graphe
 	 * 
-	 * @return la liste des arètes du graphe
+	 * @return la liste des arï¿½tes du graphe
 	 */
 	public List<Edge> getEdges() {
 		return this.Edges;
@@ -39,7 +39,7 @@ public class GraphImpl implements GraphItf {
 	 * Ajoute n sommets au graphe
 	 * 
 	 * @param n
-	 *            le nombre de sommets à ajouter
+	 *            le nombre de sommets ï¿½ ajouter
 	 */
 	public void addNVertex(int n) {
 		for (int i = 0; i < n; i++) {
@@ -48,12 +48,12 @@ public class GraphImpl implements GraphItf {
 	}
 
 	/**
-	 * Ajoute n sommet dont le premier a le numéro start
+	 * Ajoute n sommet dont le premier a le numï¿½ro start
 	 * 
 	 * @param n
-	 *            le nombre de sommet à ajouter
+	 *            le nombre de sommet ï¿½ ajouter
 	 * @param start
-	 *            le numéro du premier sommet
+	 *            le numï¿½ro du premier sommet
 	 * @throws VertexAlreadyExistException
 	 */
 	public void addVertexWithStart(int n, int start)
@@ -68,10 +68,10 @@ public class GraphImpl implements GraphItf {
 	}
 
 	/**
-	 * Ajoute le sommet de numéro i
+	 * Ajoute le sommet de numï¿½ro i
 	 * 
 	 * @param i
-	 *            le numéro du sommet à ajouter
+	 *            le numï¿½ro du sommet ï¿½ ajouter
 	 * @throws VertexAlreadyExistException
 	 */
 	public void addVertex(int i) throws VertexAlreadyExistException {
@@ -87,7 +87,7 @@ public class GraphImpl implements GraphItf {
 	 * Ajoute le sommet v au graphe
 	 * 
 	 * @param v
-	 *            le sommet à ajouter
+	 *            le sommet ï¿½ ajouter
 	 * @throws VertexAlreadyExistException
 	 */
 	public void addVertex(Vertex v) throws VertexAlreadyExistException {
@@ -108,7 +108,7 @@ public class GraphImpl implements GraphItf {
 	 * Supprime un sommet du graphe
 	 * 
 	 * @param vertex
-	 *            le sommet à supprimer
+	 *            le sommet ï¿½ supprimer
 	 * @throws VertexNotFoundException
 	 */
 	public void removeVertex(Vertex vertex) throws VertexNotFoundException {
@@ -121,7 +121,7 @@ public class GraphImpl implements GraphItf {
 	 * Supprime le sommet i
 	 * 
 	 * @param i
-	 *            le numéro du sommet à retirer
+	 *            le numï¿½ro du sommet ï¿½ retirer
 	 * @throws VertexNotFoundException
 	 */
 	public void removeVertexNumber(int i) throws VertexNotFoundException {
@@ -131,12 +131,12 @@ public class GraphImpl implements GraphItf {
 	}
 
 	/**
-	 * Ajoute l'arète dont le départ est v1 et l'arrivée v2
+	 * Ajoute l'arï¿½te dont le dï¿½part est v1 et l'arrivï¿½e v2
 	 * 
 	 * @param v1
-	 *            le sommet de départ
+	 *            le sommet de dï¿½part
 	 * @param v2
-	 *            le sommet d'arrivée
+	 *            le sommet d'arrivï¿½e
 	 */
 	public void addEdge(Vertex v1, Vertex v2) {
 		if (!this.Vertex.contains(v1))
@@ -149,28 +149,28 @@ public class GraphImpl implements GraphItf {
 	}
 
 	/**
-	 * Ajoute une valeur à l'arète
+	 * Ajoute une valeur ï¿½ l'arï¿½te
 	 * 
 	 * @param edge
-	 *            l'arète que l'on veut valuer
+	 *            l'arï¿½te que l'on veut valuer
 	 * @param value
-	 *            la valeur donnée à l'arète
+	 *            la valeur donnï¿½e ï¿½ l'arï¿½te
 	 */
 	public void addValue(Edge edge, int value) {
 		edge.setValue(value);
 	}
 
 	/**
-	 * Ajoute l'arète de départ v1, d'arrivée v2 et de valeur value
+	 * Ajoute l'arï¿½te de dï¿½part v1, d'arrivï¿½e v2 et de valeur value
 	 * 
 	 * @param v1
-	 *            le sommet de départ
+	 *            le sommet de dï¿½part
 	 * @param v2
-	 *            le sommet d'arrivée
+	 *            le sommet d'arrivï¿½e
 	 * @param value
-	 *            la valeur de l'arète
+	 *            la valeur de l'arï¿½te
 	 * @throws VertexNotFoundException
-	 *             si l'une des deux arètes n'existe pas
+	 *             si l'une des deux arï¿½tes n'existe pas
 	 */
 	public void addEdge(Vertex v1, Vertex v2, int value)
 			throws VertexNotFoundException {
@@ -182,12 +182,12 @@ public class GraphImpl implements GraphItf {
 	}
 
 	/**
-	 * Ajoute l'arète de départ le ième sommet et d'arrivée le jème sommet
+	 * Ajoute l'arï¿½te de dï¿½part le iï¿½me sommet et d'arrivï¿½e le jï¿½me sommet
 	 * 
 	 * @param i
-	 *            l'indice du sommet de départ
+	 *            l'indice du sommet de dï¿½part
 	 * @param j
-	 *            l'indice du sommet d'arrivée
+	 *            l'indice du sommet d'arrivï¿½e
 	 */
 	public void addEdge(int i, int j) throws VertexNotFoundException {
 		if (i > this.Vertex.size() || j > this.Vertex.size())
@@ -197,14 +197,14 @@ public class GraphImpl implements GraphItf {
 	}
 
 	/**
-	 * Ajoute une arète valuée entre le ième sommet et le jème sommet
+	 * Ajoute une arï¿½te valuï¿½e entre le iï¿½me sommet et le jï¿½me sommet
 	 * 
 	 * @param i
-	 *            l'indice du sommet de départ
+	 *            l'indice du sommet de dï¿½part
 	 * @param j
-	 *            l'indice du sommet d'arrivée
+	 *            l'indice du sommet d'arrivï¿½e
 	 * @param value
-	 *            la valeur de l'arète
+	 *            la valeur de l'arï¿½te
 	 * @throws VertexNotFoundException
 	 *             si l'un des deux sommets n'existe pas
 	 */
@@ -217,17 +217,17 @@ public class GraphImpl implements GraphItf {
 	}
 
 	/**
-	 * Ajoute au graphe l'arète e
+	 * Ajoute au graphe l'arï¿½te e
 	 * 
 	 * @param e
-	 *            une arète
+	 *            une arï¿½te
 	 */
 	public void addEdge(Edge e) {
 		this.Edges.add(e);
 	}
 
 	/**
-	 * Retourne le ième sommet
+	 * Retourne le iï¿½me sommet
 	 * 
 	 * @throws VertexNotFoundException
 	 */
@@ -238,11 +238,11 @@ public class GraphImpl implements GraphItf {
 	}
 
 	/**
-	 * Retourne le sommet dont le numéro est i
+	 * Retourne le sommet dont le numï¿½ro est i
 	 * 
 	 * @param i
-	 *            le numéro du sommet à retourner
-	 * @return le sommet de numéro i
+	 *            le numï¿½ro du sommet ï¿½ retourner
+	 * @return le sommet de numï¿½ro i
 	 * @throws VertexNotFoundException
 	 *             si ce sommet n'existe pas
 	 */
@@ -255,13 +255,13 @@ public class GraphImpl implements GraphItf {
 	}
 
 	/**
-	 * Retourne l'arète dont le numéro de départ est i et le numéro d'arrivée j
+	 * Retourne l'arï¿½te dont le numï¿½ro de dï¿½part est i et le numï¿½ro d'arrivï¿½e j
 	 * 
 	 * @param i
-	 *            le numéro du sommet de départ
+	 *            le numï¿½ro du sommet de dï¿½part
 	 * @param j
-	 *            le numéro du sommet d'arrivée
-	 * @return l'arète correspondante
+	 *            le numï¿½ro du sommet d'arrivï¿½e
+	 * @return l'arï¿½te correspondante
 	 * @throws EdgeNotFoundException
 	 */
 	public Edge getEdge(int i, int j) throws EdgeNotFoundException {
@@ -275,13 +275,13 @@ public class GraphImpl implements GraphItf {
 	}
 
 	/**
-	 * Retourne l'arète de départ le sommet i et d'arrivée le sommet j
+	 * Retourne l'arï¿½te de dï¿½part le sommet i et d'arrivï¿½e le sommet j
 	 * 
 	 * @param i
-	 *            le sommet de départ
+	 *            le sommet de dï¿½part
 	 * @param j
-	 *            le sommet d'arrivée
-	 * @return l'arète correspondante
+	 *            le sommet d'arrivï¿½e
+	 * @return l'arï¿½te correspondante
 	 * @throws EdgeNotFoundException
 	 */
 	public Edge getEdge(Vertex v1, Vertex v2) throws EdgeNotFoundException {
@@ -294,10 +294,10 @@ public class GraphImpl implements GraphItf {
 	}
 
 	/**
-	 * Set la liste des arètes à edges
+	 * Set la liste des arï¿½tes ï¿½ edges
 	 * 
 	 * @param Edges
-	 *            la liste des arètes
+	 *            la liste des arï¿½tes
 	 */
 	public void setEdges(List<Edge> Edges) {
 		this.Edges = Edges;
@@ -340,14 +340,14 @@ public class GraphImpl implements GraphItf {
 	}
 
 	/**
-	 * Retourne la liste des sommets vEnd tels qu'il existe une arète pour
-	 * laquelle v est un départ et vEnd une arrivée
+	 * Retourne la liste des sommets vEnd tels qu'il existe une arï¿½te pour
+	 * laquelle v est un dï¿½part et vEnd une arrivï¿½e
 	 * 
 	 * @param v
-	 *            le sommet de départ
+	 *            le sommet de dï¿½part
 	 * @return la liste des sommets
 	 * @throws VertexNotFoundException
-	 *             si le sommet de départ n'existe pas
+	 *             si le sommet de dï¿½part n'existe pas
 	 */
 	public LinkedList<Edge> getEndEdgesFromVertex(Vertex v)
 			throws VertexNotFoundException {
@@ -365,14 +365,14 @@ public class GraphImpl implements GraphItf {
 	}
 
 	/**
-	 * Retourne la liste des sommets vStart tels qu'il existe une arète pour
-	 * laquelle v est une arrivée et vStart un départ
+	 * Retourne la liste des sommets vStart tels qu'il existe une arï¿½te pour
+	 * laquelle v est une arrivï¿½e et vStart un dï¿½part
 	 * 
 	 * @param v
-	 *            le sommet d'arrivée
+	 *            le sommet d'arrivï¿½e
 	 * @return la liste des sommets
 	 * @throws VertexNotFoundException
-	 *             si le sommet d'arrivée n'existe pas
+	 *             si le sommet d'arrivï¿½e n'existe pas
 	 */
 	public LinkedList<Edge> getStartEdgesFromVertex(Vertex v)
 			throws VertexNotFoundException {
@@ -388,11 +388,12 @@ public class GraphImpl implements GraphItf {
 		}
 		return edges;
 	}
-
+	
+	
 	/**
 	 * Retourne le texte correspondant au graphe
 	 * 
-	 * @return un texte représentant le graphe
+	 * @return un texte reprï¿½sentant le graphe
 	 * @throws VertexNotFoundException
 	 */
 	public String graphToTxt() throws VertexNotFoundException {
@@ -420,10 +421,10 @@ public class GraphImpl implements GraphItf {
 	}
 
 	/**
-	 * Crée un graphe à partir d'un format texte représentant ce graphe
+	 * Crï¿½e un graphe ï¿½ partir d'un format texte reprï¿½sentant ce graphe
 	 * 
 	 * @param txt
-	 *            le texte représentant un graphe
+	 *            le texte reprï¿½sentant un graphe
 	 * @throws VertexNotFoundException
 	 * @throws NumberFormatException
 	 * @throws VertexAlreadyExistException

@@ -30,12 +30,14 @@ public class PerformancesN {
 
 				Generation g = new Generation();
 				GraphImpl graphe = g.generateValueGraph(i, 0.5);
-				//System.out.println(graphe.getVertex().size());
-				// graphe.affiche();
+				System.out.println("nb sommets : " + graphe.getVertex().size());
+				System.out.println("nb arretes : " + graphe.getEdges().size());
+				graphe.affiche();
 
 				Prim algo1 = new Prim(graphe);
 				long tempsDebut = System.currentTimeMillis();
 				algo1.algo_bis();
+				System.out.println("prim done");
 				long tempsFin = System.currentTimeMillis();
 				float seconds = (tempsFin - tempsDebut) / 1000F;
 				t1 += seconds;
@@ -43,6 +45,8 @@ public class PerformancesN {
 				Kruskal algo2 = new Kruskal(graphe);
 				tempsDebut = System.currentTimeMillis();
 				algo2.algo();
+				System.out.println("kruskal done");
+
 				tempsFin = System.currentTimeMillis();
 				seconds = (tempsFin - tempsDebut) / 1000F;
 				t2 += seconds;

@@ -42,7 +42,7 @@ public class Graphe {
 		lastD.setNextElement(nextD);
 	}
 
-	static int indice(String m, String[] tabMots) {
+	public static int indice(String m, String[] tabMots) {
 		for (int i = 0; i < tabMots.length; ++i)
 			if (m.equals(tabMots[i]))
 				return i;

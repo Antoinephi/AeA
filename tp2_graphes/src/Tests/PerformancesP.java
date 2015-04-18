@@ -36,18 +36,21 @@ public class PerformancesP {
 				Prim algo1 = new Prim(graphe);
 				long tempsDebut = System.currentTimeMillis();
 				algo1.algo_bis();
+				System.out.println("prim done");
 				long tempsFin = System.currentTimeMillis();
 				float seconds = (tempsFin - tempsDebut) / 1000F;
-				System.out.println("Prim effectué en :"
+				System.out.println("Prim effectuï¿½ en :"
 						+ Float.toString(seconds) + " secondes.");
 				t1 += seconds;
 				
 				Kruskal algo2 = new Kruskal(graphe);
 				tempsDebut = System.currentTimeMillis();
 				algo2.algo();
+				System.out.println("kruskal done");
+
 				tempsFin = System.currentTimeMillis();
 				seconds = (tempsFin - tempsDebut) / 1000F;
-				System.out.println("Prim effectué en :"
+				System.out.println("Prim effectuï¿½ en :"
 						+ Float.toString(seconds) + " secondes.");
 				t2 += seconds;
 			}
