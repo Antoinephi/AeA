@@ -52,12 +52,10 @@ public class Kruskal {
 		for (int j = 0; j < e.length; j++) {
 			// Si F U {e[i]} est acyclique Alors
 			if (!isCyclic(e[j], F)) {
-				System.out.println(e[j].getStart().getNumber() + " "
-						+ e[j].getEnd().getNumber());
 				// F := F U {e[i]}
 				F.add(e[j]);
 				updatePart(F, e[j]);
-				partToString(F);
+				//partToString(F);
 			}
 		}
 		mst.setEdges(F);
@@ -161,7 +159,7 @@ public class Kruskal {
 		if (e.getStart().getPart() == -1 || e.getEnd().getPart() == -1)
 			return false;
 		if (e.getStart().getPart() == e.getEnd().getPart()) {
-			System.out.println("iscyclic");
+			//System.out.println("iscyclic");
 			return true;
 		}
 		return false;
