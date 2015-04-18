@@ -20,7 +20,7 @@ public class PerformancesN {
 		FileWriter fw = new FileWriter("comparaisonN.csv", true);
 		BufferedWriter output = new BufferedWriter(fw);
 
-		for (int i = 5; i <= 500; i += 5) {
+		for (int i = 20; i <= 500; i += 10) {
 			t1 = (float) 0;
 			t2 = (float) 0;
 
@@ -30,14 +30,12 @@ public class PerformancesN {
 
 				Generation g = new Generation();
 				GraphImpl graphe = g.generateValueGraph(i, 0.5);
-				System.out.println("nb sommets : " + graphe.getVertex().size());
-				System.out.println("nb arretes : " + graphe.getEdges().size());
-				graphe.affiche();
+				//graphe.affiche();
 
 				Prim algo1 = new Prim(graphe);
 				long tempsDebut = System.currentTimeMillis();
 				algo1.algo();
-				System.out.println("prim done");
+				//System.out.println("prim done");
 				long tempsFin = System.currentTimeMillis();
 				float seconds = (tempsFin - tempsDebut) / 1000F;
 				t1 += seconds;
@@ -45,7 +43,7 @@ public class PerformancesN {
 				Kruskal algo2 = new Kruskal(graphe);
 				tempsDebut = System.currentTimeMillis();
 				algo2.algo();
-				System.out.println("kruskal done");
+				//System.out.println("kruskal done");
 
 				tempsFin = System.currentTimeMillis();
 				seconds = (tempsFin - tempsDebut) / 1000F;

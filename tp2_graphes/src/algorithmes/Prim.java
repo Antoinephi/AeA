@@ -10,7 +10,6 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-import VertexExceptions.EdgeNotFoundException;
 import VertexExceptions.VertexAlreadyExistException;
 import VertexExceptions.VertexNotFoundException;
 
@@ -63,7 +62,7 @@ public class Prim {
 		Edge edgeMin = null;
 		boolean v1;
 		boolean v2;
-		if(edgeList.size() < 2)
+		if (edgeList.size() < 2)
 			return this.graphe;
 		for (int i = 0; i < this.graphe.getEdges().size(); i++)
 			edgesValues.add(this.graphe.getEdges().get(i).getValue());
@@ -90,7 +89,7 @@ public class Prim {
 			}
 			if (edgeMin != null) {
 				this.MST.addEdge(edgeMin);
-				System.out.println("edge added : " + edgeMin);
+				//System.out.println("edge added : " + edgeMin);
 				edgeList.remove(edgeMin);
 				sommetsMarques.remove(edgeMin.getStart());
 				sommetsMarques.remove(edgeMin.getEnd());
@@ -127,7 +126,8 @@ public class Prim {
 		long startTime = System.currentTimeMillis();
 		p.algo();
 		System.out.println("total time : "
-				+ (float) (System.currentTimeMillis() - startTime) / 1000.0 + " secondes");
+				+ (float) (System.currentTimeMillis() - startTime) / 1000.0
+				+ " secondes");
 		p.MST.affiche();
 	}
 

@@ -12,7 +12,8 @@ import VertexExceptions.VertexNotFoundException;
 import algorithmes.*;
 
 public class PerformancesP {
-	public static void main(String[] args) throws IOException, VertexNotFoundException, VertexAlreadyExistException {
+	public static void main(String[] args) throws IOException,
+			VertexNotFoundException, VertexAlreadyExistException {
 
 		Float t1 = (float) 0;
 		Float t2 = (float) 0;
@@ -30,37 +31,37 @@ public class PerformancesP {
 
 				Generation g = new Generation();
 				GraphImpl graphe = g.generateValueGraph(300, i);
-				System.out.println(graphe.getVertex().size());
+				//System.out.println(graphe.getVertex().size());
 				// graphe.affiche();
 
 				Prim algo1 = new Prim(graphe);
 				long tempsDebut = System.currentTimeMillis();
 				algo1.algo();
-				System.out.println("prim done");
+				// System.out.println("prim done");
 				long tempsFin = System.currentTimeMillis();
 				float seconds = (tempsFin - tempsDebut) / 1000F;
-				System.out.println("Prim effectu� en :"
-						+ Float.toString(seconds) + " secondes.");
+				// System.out.println("Prim effectu� en :"
+				// + Float.toString(seconds) + " secondes.");
 				t1 += seconds;
-				
+
 				Kruskal algo2 = new Kruskal(graphe);
 				tempsDebut = System.currentTimeMillis();
 				algo2.algo();
-				System.out.println("kruskal done");
+				// System.out.println("kruskal done");
 
 				tempsFin = System.currentTimeMillis();
 				seconds = (tempsFin - tempsDebut) / 1000F;
-				System.out.println("Prim effectu� en :"
-						+ Float.toString(seconds) + " secondes.");
+				// System.out.println("Prim effectu� en :"
+				// + Float.toString(seconds) + " secondes.");
 				t2 += seconds;
 			}
-			float t1Moy = t1/50;
-			float t2Moy = t2/50;
-			
+			float t1Moy = t1 / 50;
+			float t2Moy = t2 / 50;
+
 			output.write(t1Moy + ";");
 			output.write(t2Moy + "\n");
 			output.flush();
-			
+
 		}
 		output.close();
 
