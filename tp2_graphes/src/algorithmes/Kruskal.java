@@ -25,7 +25,7 @@ public class Kruskal {
 	/**
 	 * L'algorithme de calcul du mst
 	 * 
-	 * @return le graphe mst correspondant au graphe de départ
+	 * @return le graphe mst correspondant au graphe de dï¿½part
 	 * @throws VertexAlreadyExistException
 	 */
 	public GraphImpl algo() throws VertexAlreadyExistException {
@@ -63,13 +63,13 @@ public class Kruskal {
 	}
 
 	/**
-	 * Permet d'afficher dans quelle partie sont les sommets pour la cyclicité
+	 * Permet d'afficher dans quelle partie sont les sommets pour la cyclicitï¿½
 	 * 
 	 * @param F
-	 *            l'ensemble des arètes
+	 *            l'ensemble des arï¿½tes
 	 */
 	public void partToString(LinkedList<Edge> F) {
-		System.out.println("\n\ndébut part");
+		System.out.println("\n\ndï¿½but part");
 		for (Edge e : F) {
 			System.out.println(e.getStart().getNumber() + " part : "
 					+ e.getStart().getPart() + " , " + e.getEnd().getNumber()
@@ -79,15 +79,15 @@ public class Kruskal {
 	}
 
 	/**
-	 * Met à jour les attributs part lors de l'ajout de l'arète e
+	 * Met ï¿½ jour les attributs part lors de l'ajout de l'arï¿½te e
 	 * 
 	 * @param F
-	 *            l'ensemble des arète de départ
+	 *            l'ensemble des arï¿½te de dï¿½part
 	 * @param e
-	 *            l'arète à ajouter
+	 *            l'arï¿½te ï¿½ ajouter
 	 */
 	private void updatePart(LinkedList<Edge> F, Edge e) {
-		// Si les sommets de la nouvelle arète ne font pas encore partie du
+		// Si les sommets de la nouvelle arï¿½te ne font pas encore partie du
 		// graphe, on ajoute une nouvelle partie
 		if (e.getStart().getPart() == -1 && e.getEnd().getPart() == -1) {
 			System.out.println("case -1 -1");
@@ -97,20 +97,20 @@ public class Kruskal {
 			partMin++;
 			return;
 		}
-		// Si le sommet de départ ne fait pas encore partie du graphe, il prend
-		// le numéro de partie du sommet de fin de l'arète
+		// Si le sommet de dï¿½part ne fait pas encore partie du graphe, il prend
+		// le numï¿½ro de partie du sommet de fin de l'arï¿½te
 		if (e.getStart().getPart() == -1 && e.getEnd().getPart() != -1) {
 			e.getStart().setPart(e.getEnd().getPart());
 			return;
 		}
 		// Si le sommet de fin ne fait pas encore partie du graphe, il prend le
-		// numéro de partie du sommet de départ de l'arète
+		// numï¿½ro de partie du sommet de dï¿½part de l'arï¿½te
 		if (e.getEnd().getPart() == -1 && e.getStart().getPart() != -1) {
 			e.getEnd().setPart(e.getStart().getPart());
 			return;
 		}
-		// Sinon, on donne à tous les sommets de la même partie que le sommet de
-		// fin de l'arète la partie du sommet de départ de l'arète
+		// Sinon, on donne ï¿½ tous les sommets de la mï¿½me partie que le sommet de
+		// fin de l'arï¿½te la partie du sommet de dï¿½part de l'arï¿½te
 		for (Edge e1 : F) {
 			if (e1.getStart().getPart() == e.getEnd().getPart()) {
 				e1.getStart().setPart(e.getStart().getPart());
@@ -122,11 +122,11 @@ public class Kruskal {
 	}
 
 	/**
-	 * Tri le tableau d'arète selon les valeurs décroissantes
+	 * Tri le tableau d'arï¿½te selon les valeurs dï¿½croissantes
 	 * 
 	 * @param e
-	 *            le tableau d'arètes
-	 * @return ce même tableau trié
+	 *            le tableau d'arï¿½tes
+	 * @return ce mï¿½me tableau triï¿½
 	 */
 	public Edge[] sortEdge(Edge[] e) {
 		for (int i = 0; i < e.length; i++) {
@@ -146,13 +146,13 @@ public class Kruskal {
 	}
 
 	/**
-	 * Vérifie si l'ajout de l'arète e rend le graphe dont les arètes sont F
+	 * Vï¿½rifie si l'ajout de l'arï¿½te e rend le graphe dont les arï¿½tes sont F
 	 * cyclique
 	 * 
 	 * @param e
-	 *            l'arète à ajouter
+	 *            l'arï¿½te ï¿½ ajouter
 	 * @param F
-	 *            l'ensemble des arètes déjà présentes
+	 *            l'ensemble des arï¿½tes dï¿½jï¿½ prï¿½sentes
 	 * @return true si le graphe est cyclique, false sinon
 	 */
 	public boolean isCyclic(Edge e, LinkedList<Edge> F) {
@@ -192,7 +192,7 @@ public class Kruskal {
 		GraphImpl mst = algo.algo();
 		long fin = System.currentTimeMillis();
 		float seconds = (fin - debut) / 1000F;
-		System.out.println("Kruskal effectué en :" + Float.toString(seconds)
+		System.out.println("Kruskal effectuï¿½ en :" + Float.toString(seconds)
 				+ " secondes.");
 		mst.affiche();
 	}
