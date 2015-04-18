@@ -35,7 +35,7 @@ public class PerformancesP {
 
 				Prim algo1 = new Prim(graphe);
 				long tempsDebut = System.currentTimeMillis();
-				algo1.algo_bis();
+				algo1.algo();
 				System.out.println("prim done");
 				long tempsFin = System.currentTimeMillis();
 				float seconds = (tempsFin - tempsDebut) / 1000F;
